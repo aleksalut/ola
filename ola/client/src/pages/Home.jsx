@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Card from "../components/Card";
+import PriorityGoalReminder from "../components/PriorityGoalReminder";
 
 export default function Home() {
   return (
@@ -29,6 +30,9 @@ export default function Home() {
           </Link>
         </div>
       </Card>
+      
+      {/* Priority Goal Reminder */}
+      <PriorityGoalReminder />
     </div>
   )
 }

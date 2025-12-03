@@ -1,0 +1,86 @@
+PROJEKT ZALICZENIOWY 
+Bazy Danych w Aplikacjach Internetowych 
+Termin oddania: 03.12.2025, godz. 23:59 
+Sposób wysyłki:Link do repo na Teams lub email 
+Cel projektu 
+Stworzenie kompletnej aplikacji webowej w technologii .NET (C#) z wykorzystaniem 
+relacyjnej bazy danych (MS SQL Server lub inna), ORM Entity Framework oraz frontendu w 
+dowolnej technologii. 
+Projekt ma wykazać umiejętność projektowania bazy danych, tworzenia API, integracji 
+backendu z bazą oraz testowania kodu. 
+1. Zasady ogólne 
+Projekt jest indywidualny – każdy student tworzy własną aplikację. Temat do wyboru, ale 
+system powinien być złożony i nietrywialny (nie prosty CRUD w stylu "lista zakupów"). 
+Kod wraz z dokumentacją należy umieścić w repozytorium Git (GitHub, GitLab itp.). 
+Aplikacja powinna dać się uruchomić lokalnie, ewentualnie z użyciem Dockera. 
+2. Wymagania techniczne 
+Backend 
+● ASP.NET Core (.NET 7 lub nowszy) 
+● Architektura: MVC lub Web API 
+● Entity Framework Core (Code First albo Database First) 
+● Minimum 5 endpointów API realizujących operacje CRUD oraz dodatkową logikę 
+biznesową 
+● Walidacja danych wejściowych 
+● Obsługa błędów i wyjątków 
+● Mechanizm autoryzacji i uwierzytelniania (np. JWT, ASP.NET Identity) 
+● Co najmniej 5 testów jednostkowych (xUnit lub NUnit) 
+Baza danych 
+● Minimum 4 tabele połączone relacjami (1:N lub N:M) 
+● Klucze główne, klucze obce, indeksy i ograniczenia integralności 
+● Minimum 2 procedury składowane 
+● Minimum 1 funkcja użytkownika 
+● Minimum 1 wyzwalacz (trigger) 
+● Poprawna integracja z Entity Framework 
+● Dane testowe (seed data w EF lub skrypt SQL) 
+Frontend 
+● Technologia dowolna (React, Angular, Blazor, Vue, Razor Pages, etc.) 
+● Przynajmniej 3 widoki z pełną obsługą operacji CRUD 
+● Formularz logowania i obsługa autoryzacji po stronie użytkownika 
+● Komunikacja z API poprzez zapytania GET, POST, PUT, DELETE 
+3. Wymagania funkcjonalne 
+Aplikacja powinna spełniać następujące warunki: 
+1. Obsługa co najmniej dwóch ról użytkowników (przykładowo: administrator i zwykły 
+użytkownik) 
+2. Minimum 5 różnych funkcjonalności, takich jak: rejestracja, tworzenie/edycja 
+zasobów, akceptacja działań, generowanie raportów 
+3. Realizacja pełnego procesu biznesowego (np. dodanie elementu → weryfikacja → 
+zatwierdzenie) 
+4. Możliwość wygenerowania raportu lub zestawienia danych 
+5. Logowanie działań użytkownika lub błędów systemowych 
+4. Dokumentacja 
+Do projektu należy dołączyć: 
+● Opis systemu (około 1 strony) – jaki problem rozwiązuje aplikacja, jakie ma funkcje, 
+kto z niej korzysta 
+● Diagram ERD przedstawiający strukturę bazy danych 
+● Wykaz procedur składowanych, funkcji i wyzwalaczy wraz z krótkim opisem ich 
+działania 
+● Zrzuty ekranu pokazujące działającą aplikację 
+● Instrukcja uruchomienia projektu (kroki, komendy typu dotnet run, 
+update-database) 
+5. Kryteria oceny 
+Obszar 
+Baza danych 
+Backend (.NET + EF) 
+Integracja API–baza 
+danych 
+Frontend 
+Testy jednostkowe 
+Dokumentacja 
+Złożoność i oryginalność 
+Punkty 
+20 
+25 
+15 
+15 
+10 
+10 
+5 
+Suma: 100 punktów 
+Próg zaliczenia (min ocena 4.0): 71 punktów 
+Opis 
+Relacje, procedury składowane, funkcje, 
+wyzwalacze 
+Jakość API, logika biznesowa, autoryzacja 
+Poprawność operacji CRUD, transakcje 
+Widoki, interakcja z API, UX 
+Minimum 5 sensownych testów

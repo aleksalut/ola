@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ola.Models;
 using System.Security.Claims;
 
@@ -50,6 +51,14 @@ namespace ola.Controllers
                 return BadRequest(new { error = errors });
             }
             return Ok(new { user.Id, user.Email, user.UserName, user.FullName, user.Bio });
+        }
+
+        [HttpGet("all")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            return Ok(users.Select(u => new { u.Id, u.Email, u.FirstName, u.LastName }));
         }
     }
 }

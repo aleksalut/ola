@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { register } from "../../services/auth";
-import Card from "../../components/Card";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
@@ -29,22 +28,72 @@ export default function Register() {
   };
 
   return (
-    <div className="container max-w-md mx-auto py-12">
-      <Card>
-        <h2 className="text-2xl font-bold mb-4 text-center">Create account</h2>
-        <p className="text-sm text-gray-500 mb-6 text-center">Start tracking your habits and goals</p>
-        {error && <div className="text-red-600 text-sm mb-4">{error}</div>}
+    <div className="min-h-screen bg-white flex flex-col items-center px-4 pt-16 pb-8">
+      {/* Logo & Brand - Higher and Bigger */}
+      <div className="text-center mb-4">
+        <h1 className="text-7xl font-black text-pink-500 tracking-tight mb-2">
+          Growth
+        </h1>
+        <p className="text-gray-400 text-lg">Start Your Journey Today</p>
+      </div>
+      
+      {/* Inspirational Quote */}
+      <div className="text-center mb-8 max-w-md">
+        <p className="text-xl text-gray-600 font-light">
+          Every expert was once a beginner.
+        </p>
+        <p className="text-xl text-blue-500 font-semibold">
+          Start your transformation today.
+        </p>
+      </div>
+      
+      {/* Register Card */}
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-auto">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2 text-center">Create account</h2>
+        <p className="text-gray-500 text-center mb-6">Join us and begin your growth</p>
+        
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-600 text-sm p-3 rounded-lg mb-4">
+            {error}
+          </div>
+        )}
+        
         <form onSubmit={submit} className="space-y-4">
-          <Input label="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-          <Input label="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+          <div className="grid grid-cols-2 gap-4">
+            <Input label="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+            <Input label="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+          </div>
           <Input label="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
           <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-          <div className="flex items-center justify-between">
-            <Link to="/login" className="text-sm text-gray-500 hover:text-primary">Already have an account?</Link>
-            <Button type="submit" disabled={loading}>{loading? 'Creating...' : 'Sign up'}</Button>
-          </div>
+          
+          <Button type="submit" className="w-full py-3" disabled={loading}>
+            {loading ? 'Creating account...' : 'Create account'}
+          </Button>
         </form>
-      </Card>
+        
+        <div className="mt-6 text-center">
+          <p className="text-gray-500">
+            Already have an account?{' '}
+            <Link to="/login" className="text-pink-500 font-semibold hover:text-pink-600">
+              Sign in
+            </Link>
+          </p>
+        </div>
+      </div>
+      
+      {/* Features at the bottom */}
+      <div className="mt-8 text-center">
+        <p className="text-gray-400 text-sm mb-4">What you'll find in the app</p>
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2">
+          <span className="text-gray-500 font-medium">Habit Tracking</span>
+          <span className="text-pink-300">•</span>
+          <span className="text-gray-500 font-medium">Goal Setting</span>
+          <span className="text-pink-300">•</span>
+          <span className="text-gray-500 font-medium">Emotion Journal</span>
+          <span className="text-pink-300">•</span>
+          <span className="text-gray-500 font-medium">Progress Reports</span>
+        </div>
+      </div>
     </div>
   );
 }

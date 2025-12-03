@@ -11,15 +11,35 @@ namespace ola.Models
         public int Id { get; set; }
 
         [Required]
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        [Required]
+        [StringLength(2000)]
+        public string Text { get; set; } = string.Empty;
+
+        [Range(1, 5)]
+        public int? Anxiety { get; set; }
+
+        [Range(1, 5)]
+        public int? Calmness { get; set; }
+
+        [Range(1, 5)]
+        public int? Joy { get; set; }
+
+        [Range(1, 5)]
+        public int? Anger { get; set; }
+
+        [Range(1, 5)]
+        public int? Boredom { get; set; }
+
+        // Legacy fields - keep for backward compatibility
         public DateTime Date { get; set; } = DateTime.UtcNow;
 
-        [Required]
         [StringLength(50)]
-        public string Emotion { get; set; } = string.Empty;
+        public string? Emotion { get; set; }
 
-        [Required]
         [Range(0, 10)]
-        public int Intensity { get; set; }
+        public int? Intensity { get; set; }
 
         [StringLength(1000)]
         public string? Note { get; set; }

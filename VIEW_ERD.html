@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>?? View Database ERD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f7fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            background: #f7fafc;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #4a5568;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: #edf2f7;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .erd-viewer {
+            background: #f9fafb;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            overflow: auto;
+        }
+        
+        .erd-viewer img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .info-card {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .info-card h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .info-card p {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .info-card li {
+            padding: 6px 0;
+            color: #4a5568;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .info-card li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .btn-container {
+            display: flex;
+            gap: 16px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            flex: 1;
+            min-width: 200px;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #f7fafc;
+            transform: translateY(-2px);
+        }
+        
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        
+        .table-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .table-item {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+        
+        .table-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .table-name {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .table-desc {
+            color: #4a5568;
+            font-size: 14px;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            background: #48bb78;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>?? Database Entity Relationship Diagram</h1>
+            <p>Personal Growth Tracker - Complete Schema Visualization</p>
+            <div class="status-badge">? COMPLETE</div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('diagram')">?? ERD Diagram</button>
+            <button class="tab" onclick="showTab('tables')">??? Tables</button>
+            <button class="tab" onclick="showTab('relationships')">?? Relationships</button>
+            <button class="tab" onclick="showTab('files')">?? Files</button>
+        </div>
+        
+        <div class="content">
+            <!-- Diagram Tab -->
+            <div id="diagram" class="tab-content active">
+                <h2 style="color: #2d3748; margin-bottom: 20px;">Complete Database Schema</h2>
+                <div class="erd-viewer">
+                    <img src="documentation/ERD.svg" alt="ERD Diagram" id="erdImage">
+                    <p style="margin-top: 15px; color: #718096;">
+                        <strong>Tip:</strong> Use browser zoom (Ctrl/Cmd + Mouse Wheel) to zoom in/out
+                    </p>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn btn-primary" onclick="downloadSVG()">?? Download SVG</button>
+                    <button class="btn btn-secondary" onclick="openDBDiagram()">?? Open in dbdiagram.io</button>
+                    <button class="btn btn-secondary" onclick="zoomIn()">?? Zoom In</button>
+                    <button class="btn btn-secondary" onclick="zoomOut()">?? Zoom Out</button>
+                </div>
+            </div>
+            
+            <!-- Tables Tab -->
+            <div id="tables" class="tab-content">
+                <h2 style="color: #2d3748; margin-bottom: 20px;">Database Tables</h2>
+                
+                <div class="table-list">
+                    <div class="table-item">
+                        <div class="table-name">AspNetUsers</div>
+                        <div class="table-desc">Identity user accounts + custom profile fields</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="table-name">Habits</div>
+                        <div class="table-desc">User-defined habits to track daily</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="table-name">DailyProgresses</div>
+                        <div class="table-desc">Daily progress entries for habits</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="table-name">Goals</div>
+                        <div class="table-desc">User goals with priorities and deadlines</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="table-name">EmotionEntries</div>
+                        <div class="table-desc">Emotion journal with 5-point scales</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="table-name">AuditLogs</div>
+                        <div class="table-desc">Activity audit trail for all actions</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="table-name">AspNetRoles</div>
+                        <div class="table-desc">System roles (Admin, User)</div>
+                    </div>
+                    <div class="table-item">
+                        <div class="table-name">AspNetUserRoles</div>
+                        <div class="table-desc">User-role mapping (junction table)</div>
+                    </div>
+                </div>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>?? Primary Keys</h3>
+                        <ul>
+                            <li>AspNetUsers.Id: varchar(450)</li>
+                            <li>Habits.Id: int (auto-increment)</li>
+                            <li>DailyProgresses.Id: int</li>
+                            <li>Goals.Id: int</li>
+                            <li>EmotionEntries.Id: int</li>
+                            <li>AuditLogs.Id: int</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h3>?? Record Counts (Seeded)</h3>
+                        <ul>
+                            <li>AspNetUsers: 1 (demo user)</li>
+                            <li>Habits: 3</li>
+                            <li>DailyProgresses: 7</li>
+                            <li>Goals: 3</li>
+                            <li>EmotionEntries: 3</li>
+                            <li>AspNetRoles: 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Relationships Tab -->
+            <div id="relationships" class="tab-content">
+                <h2 style="color: #2d3748; margin-bottom: 20px;">Entity Relationships</h2>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>User ? Habits (1:N)</h3>
+                        <p><strong>FK:</strong> Habits.UserId ? AspNetUsers.Id</p>
+                        <p><strong>Delete:</strong> RESTRICT</p>
+                        <p><strong>Index:</strong> IX_Habits_UserId_Name</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>User ? Goals (1:N)</h3>
+                        <p><strong>FK:</strong> Goals.UserId ? AspNetUsers.Id</p>
+                        <p><strong>Delete:</strong> RESTRICT</p>
+                        <p><strong>Index:</strong> IX_Goals_UserId_Status_Priority</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>User ? EmotionEntries (1:N)</h3>
+                        <p><strong>FK:</strong> EmotionEntries.UserId ? AspNetUsers.Id</p>
+                        <p><strong>Delete:</strong> RESTRICT</p>
+                        <p><strong>Index:</strong> IX_EmotionEntries_UserId_Date</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Habit ? DailyProgresses (1:N)</h3>
+                        <p><strong>FK:</strong> DailyProgresses.HabitId ? Habits.Id</p>
+                        <p><strong>Delete:</strong> CASCADE</p>
+                        <p><strong>Note:</strong> Progress deleted with habit</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>User ? DailyProgresses (1:N)</h3>
+                        <p><strong>FK:</strong> DailyProgresses.UserId ? AspNetUsers.Id</p>
+                        <p><strong>Delete:</strong> RESTRICT</p>
+                        <p><strong>Index:</strong> IX_DailyProgresses_UserId_HabitId_Date</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>User ? AuditLogs (1:N)</h3>
+                        <p><strong>FK:</strong> AuditLogs.UserId ? AspNetUsers.Id</p>
+                        <p><strong>Delete:</strong> RESTRICT</p>
+                        <p><strong>Index:</strong> IX_AuditLogs_UserId_Timestamp</p>
+                    </div>
+                </div>
+                
+                <div class="info-card" style="margin-top: 20px;">
+                    <h3>??? Database Objects</h3>
+                    <ul>
+                        <li><strong>fn_GetHabitStreak</strong> - Calculates habit streak</li>
+                        <li><strong>fn_GetGoalCompletionRate</strong> - Goal completion %</li>
+                        <li><strong>sp_GetUserStatistics</strong> - User stats report</li>
+                        <li><strong>sp_ArchiveCompletedGoals</strong> - Archive old goals</li>
+                        <li><strong>trg_AutoCompleteGoal</strong> - Auto-update goal status</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Files Tab -->
+            <div id="files" class="tab-content">
+                <h2 style="color: #2d3748; margin-bottom: 20px;">ERD Files & Documentation</h2>
+                
+                <div class="info-card">
+                    <h3>?? Generated Files</h3>
+                    <ul>
+                        <li><strong>documentation/ERD.svg</strong> - Visual diagram (SVG format)</li>
+                        <li><strong>documentation/ERD.dbml</strong> - Schema definition (DBML)</li>
+                        <li><strong>README.md</strong> - Updated with ERD section</li>
+                        <li><strong>ERD_IMPLEMENTATION_COMPLETE.md</strong> - Full documentation</li>
+                        <li><strong>ERD_QUICK_REFERENCE.md</strong> - Quick reference card</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>?? View Options</h3>
+                    <p><strong>Browser:</strong> Open ERD.svg directly</p>
+                    <p><strong>dbdiagram.io:</strong> Import ERD.dbml for interactive view</p>
+                    <p><strong>VS Code:</strong> Install SVG preview extension</p>
+                    <p><strong>GitHub:</strong> View in README.md</p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>?? DBML File Location</h3>
+                    <div class="code-block">documentation/ERD.dbml</div>
+                    <p>Import this file to dbdiagram.io for an interactive, editable diagram with zoom, pan, and export features.</p>
+                </div>
+                
+                <div class="btn-container">
+                    <a href="documentation/ERD.svg" class="btn btn-primary" download>?? Download SVG</a>
+                    <a href="documentation/ERD.dbml" class="btn btn-secondary" download>?? Download DBML</a>
+                    <a href="README.md#entity-relationship-diagram" class="btn btn-secondary">?? View in README</a>
+                    <button class="btn btn-secondary" onclick="openDBDiagram()">?? Open dbdiagram.io</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentZoom = 100;
+        
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Deactivate all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activate selected tab
+            event.target.classList.add('active');
+        }
+        
+        function downloadSVG() {
+            const link = document.createElement('a');
+            link.href = 'documentation/ERD.svg';
+            link.download = 'PersonalGrowthTracker_ERD.svg';
+            link.click();
+        }
+        
+        function openDBDiagram() {
+            window.open('https://dbdiagram.io/d', '_blank');
+            alert('Import the DBML file (documentation/ERD.dbml) to view an interactive diagram!');
+        }
+        
+        function zoomIn() {
+            currentZoom += 10;
+            applyZoom();
+        }
+        
+        function zoomOut() {
+            if (currentZoom > 20) {
+                currentZoom -= 10;
+                applyZoom();
+            }
+        }
+        
+        function applyZoom() {
+            const img = document.getElementById('erdImage');
+            img.style.transform = `scale(${currentZoom / 100})`;
+            img.style.transformOrigin = 'top center';
+        }
+        
+        console.log('?? ERD Viewer loaded successfully!');
+        console.log('Files:');
+        console.log('  - documentation/ERD.svg (Visual diagram)');
+        console.log('  - documentation/ERD.dbml (Schema definition)');
+        console.log('  - README.md (Updated with ERD section)');
+    </script>
+</body>
+</html>
