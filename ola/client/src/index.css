@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color: theme(colors.text); background: theme(colors.background); }
+
+.container { @apply max-w-6xl mx-auto px-4; }
+.card { @apply bg-surface backdrop-blur rounded-xl shadow-sm border border-border; }
+.btn { @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary; }
+.input { @apply w-full rounded-lg border border-border bg-surfaceAlt text-text placeholder:text-text/50 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary; }
+.label { @apply block text-sm font-medium text-text mb-1; }
+.page { @apply container py-8; }
