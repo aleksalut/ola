@@ -62,7 +62,7 @@ When running in development mode, Swagger UI is available at `/swagger`.
 - `PUT /api/habits/{id}` - Update a habit
 - `DELETE /api/habits/{id}` - Delete a habit
 - `GET /api/habits/{habitId}/progress` - Get progress for a habit
-- `POST /api/habits/progress` - Add progress entry
+- `POST /api/habits/progress` - Add progress entry (also available at `POST /api/progress`)
 
 ### Goals
 - `GET /api/goals` - List all goals
@@ -85,7 +85,7 @@ When running in development mode, Swagger UI is available at `/swagger`.
 If you want to make this repository public on GitHub:
 
 1. Go to the repository page on GitHub
-2. Click on **Settings** (gear icon)
+2. Click on the **Settings** tab
 3. Scroll down to the **Danger Zone** section
 4. Click **Change visibility**
 5. Select **Make public**
