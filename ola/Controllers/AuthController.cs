@@ -48,6 +48,10 @@ namespace ola.Controllers
                     var errors = string.Join("; ", result.Errors.Select(e => e.Description));
                     return BadRequest(new { error = errors });
                 }
+
+                // Assign "User" role to new users
+                await _userManager.AddToRoleAsync(user, "User");
+
                 return Ok(new { user.Id, user.Email, user.UserName, user.FullName, user.FirstName, user.LastName });
             }
             catch (Exception ex)

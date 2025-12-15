@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ola.Data;
 using ola.Models;
+using ola.Services;
 using System.Security.Claims;
 
 namespace ola.Controllers
@@ -15,10 +16,12 @@ namespace ola.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
-        public DailyProgressController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        private readonly IAuditService _auditService;
+        public DailyProgressController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, IAuditService auditService)
         {
             _db = db;
             _userManager = userManager;
+            _auditService = auditService;
         }
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
 
@@ -47,6 +50,13 @@ namespace ola.Controllers
             };
             _db.DailyProgresses.Add(progress);
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "AddDailyProgress",
+                "DailyProgress",
+                progress.Id,
+                new { req.HabitId, req.Date, req.Value }
+            );
             return Ok(progress);
         }
 
@@ -74,6 +84,13 @@ namespace ola.Controllers
             progress.Date = update.Date.Date;
             progress.Value = update.Value;
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "UpdateDailyProgress",
+                "DailyProgress",
+                progress.Id,
+                new { update.Date, update.Value }
+            );
             return Ok(progress);
         }
 
@@ -85,6 +102,13 @@ namespace ola.Controllers
             if (progress == null) return NotFound(new { error = "Progress not found" });
             _db.DailyProgresses.Remove(progress);
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "DeleteDailyProgress",
+                "DailyProgress",
+                id,
+                null
+            );
             return NoContent();
         }
     }

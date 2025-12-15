@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emotion Journal - Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-card {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .pending { color: #ffc107; }
+        h1 { color: #333; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        #results { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>?? Emotion Journal - System Test</h1>
+    
+    <div class="test-card">
+        <h2>Connection Tests</h2>
+        <button onclick="testBackend()">Test Backend API</button>
+        <button onclick="testFrontend()">Test Frontend</button>
+        <button onclick="testAuth()">Test Authentication</button>
+        <button onclick="clearTests()">Clear Results</button>
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        const API_BASE = 'http://localhost:5257/api';
+        
+        function addResult(title, status, message, details = null) {
+            const results = document.getElementById('results');
+            const card = document.createElement('div');
+            card.className = 'test-card';
+            
+            const statusClass = status === 'success' ? 'success' : status === 'error' ? 'error' : 'pending';
+            
+            let html = `
+                <h3>${title}</h3>
+                <p class="${statusClass}"><strong>Status:</strong> ${status.toUpperCase()}</p>
+                <p>${message}</p>
+            `;
+            
+            if (details) {
+                html += `<pre>${JSON.stringify(details, null, 2)}</pre>`;
+            }
+            
+            card.innerHTML = html;
+            results.appendChild(card);
+        }
+        
+        function clearTests() {
+            document.getElementById('results').innerHTML = '';
+        }
+        
+        async function testBackend() {
+            addResult('Backend API Test', 'pending', 'Testing connection to backend...');
+            
+            try {
+                const response = await fetch(`${API_BASE}/EmotionEntries`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.status === 401) {
+                    addResult('Backend API Test', 'success', 
+                        'Backend is running! Got expected 401 Unauthorized (authentication required).',
+                        { status: response.status, statusText: response.statusText }
+                    );
+                } else if (response.ok) {
+                    const data = await response.json();
+                    addResult('Backend API Test', 'success', 
+                        'Backend is running and returned data!',
+                        { status: response.status, data: data }
+                    );
+                } else {
+                    addResult('Backend API Test', 'error', 
+                        `Backend returned unexpected status: ${response.status}`,
+                        { status: response.status, statusText: response.statusText }
+                    );
+                }
+            } catch (error) {
+                addResult('Backend API Test', 'error', 
+                    'Cannot connect to backend. Make sure it is running on port 5257.',
+                    { error: error.message }
+                );
+            }
+        }
+        
+        async function testFrontend() {
+            addResult('Frontend Test', 'pending', 'Testing frontend pages...');
+            
+            try {
+                const response = await fetch('http://127.0.0.1:5173/');
+                if (response.ok) {
+                    addResult('Frontend Test', 'success', 
+                        'Frontend dev server is running on port 5173!',
+                        { status: response.status }
+                    );
+                } else {
+                    addResult('Frontend Test', 'error', 
+                        'Frontend returned unexpected status.',
+                        { status: response.status }
+                    );
+                }
+            } catch (error) {
+                addResult('Frontend Test', 'error', 
+                    'Cannot connect to frontend. Make sure Vite dev server is running.',
+                    { error: error.message }
+                );
+            }
+        }
+        
+        async function testAuth() {
+            addResult('Authentication Test', 'pending', 'Testing if you have a valid token...');
+            
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                addResult('Authentication Test', 'error', 
+                    'No authentication token found. You need to login first at http://127.0.0.1:5173/login'
+                );
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/EmotionEntries`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult('Authentication Test', 'success', 
+                        `Successfully authenticated! You have ${data.length} emotion entries.`,
+                        { status: response.status, entryCount: data.length }
+                    );
+                } else if (response.status === 401) {
+                    addResult('Authentication Test', 'error', 
+                        'Token is invalid or expired. Please login again at http://127.0.0.1:5173/login',
+                        { status: response.status }
+                    );
+                } else {
+                    addResult('Authentication Test', 'error', 
+                        `Unexpected status: ${response.status}`,
+                        { status: response.status, statusText: response.statusText }
+                    );
+                }
+            } catch (error) {
+                addResult('Authentication Test', 'error', 
+                    'Error testing authentication.',
+                    { error: error.message }
+                );
+            }
+        }
+        
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                testBackend();
+                setTimeout(() => testFrontend(), 500);
+            }, 500);
+        });
+    </script>
+</body>
+</html>

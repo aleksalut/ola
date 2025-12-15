@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLA Reports Dashboard - Test Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        .status.pending {
+            background: #fff3cd;
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            margin: 10px 5px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        .btn.secondary {
+            background: #6c757d;
+        }
+        .btn.secondary:hover {
+            background: #5a6268;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #fef08a 0%, #fef08a 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+            padding: 2px 4px;
+        }
+        ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>?? Reports Dashboard</h1>
+        <p class="subtitle">Test & Access Guide</p>
+
+        <!-- Status Checks -->
+        <div class="section">
+            <h2>?? System Status</h2>
+            <div class="status" id="frontend-status">
+                <span class="icon">?</span>
+                <span>Checking frontend...</span>
+            </div>
+            <div class="status" id="backend-status">
+                <span class="icon">?</span>
+                <span>Checking backend...</span>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section">
+            <h2>?? Quick Actions</h2>
+            <div class="links">
+                <a href="http://localhost:5173" target="_blank" class="btn">
+                    Open Frontend
+                </a>
+                <a href="http://localhost:5173/reports" target="_blank" class="btn">
+                    Open Reports Dashboard
+                </a>
+                <a href="http://localhost:5257/api/reports/my-statistics" target="_blank" class="btn secondary">
+                    Test API (Statistics)
+                </a>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="section">
+            <h2>?? How to Access Reports</h2>
+            <ol>
+                <li><strong>Resume Backend:</strong> In Visual Studio, press <code>F5</code> or click Continue ??</li>
+                <li><strong>Open Application:</strong> Click "Open Frontend" button above</li>
+                <li><strong>Login:</strong> Use your credentials (e.g., <code>demo@example.com</code> / <code>Demo1234!</code>)</li>
+                <li><strong>Navigate:</strong> Click <span class="highlight">"Reports"</span> in the top navigation bar</li>
+                <li><strong>Explore:</strong> View your statistics, charts, and insights!</li>
+            </ol>
+        </div>
+
+        <!-- What's Included -->
+        <div class="section">
+            <h2>? Dashboard Features</h2>
+            <ul>
+                <li><strong>8 Statistics Cards</strong> - Habits, Goals, Completion Rate, Progress, etc.</li>
+                <li><strong>Habit Progress Chart</strong> - Interactive line chart with habit selector</li>
+                <li><strong>Emotion Trends Chart</strong> - Multi-line chart tracking 5 emotions over 30 days</li>
+                <li><strong>Quick Insights</strong> - Success rate, active items, journal entries</li>
+                <li><strong>Responsive Design</strong> - Works on mobile, tablet, and desktop</li>
+            </ul>
+        </div>
+
+        <!-- Troubleshooting -->
+        <div class="section">
+            <h2>?? Troubleshooting</h2>
+            <ul>
+                <li><strong>401 Unauthorized:</strong> You need to login first</li>
+                <li><strong>No Data:</strong> Create some habits/goals/emotions first</li>
+                <li><strong>Backend Connection Failed:</strong> Resume debugger in Visual Studio</li>
+                <li><strong>Charts Not Loading:</strong> Check browser console (F12) for errors</li>
+            </ul>
+        </div>
+
+        <!-- API Endpoints -->
+        <div class="section">
+            <h2>?? API Endpoints</h2>
+            <ul>
+                <li><code>GET /api/reports/my-statistics</code> - User statistics</li>
+                <li><code>GET /api/reports/completion-rate</code> - Goal completion %</li>
+                <li><code>GET /api/reports/habit-progress/{id}</code> - Habit progress history</li>
+                <li><code>GET /api/reports/emotion-trends?days=30</code> - Emotion trends</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Check frontend status
+        fetch('http://localhost:5173')
+            .then(response => {
+                const status = document.getElementById('frontend-status');
+                status.className = 'status success';
+                status.innerHTML = '<span class="icon">?</span><span>Frontend is running on port 5173</span>';
+            })
+            .catch(error => {
+                const status = document.getElementById('frontend-status');
+                status.className = 'status error';
+                status.innerHTML = '<span class="icon">?</span><span>Frontend is not running. Start with: npm run dev</span>';
+            });
+
+        // Check backend status
+        fetch('http://localhost:5257/api/habits', {
+            headers: {
+                'Authorization': 'Bearer ' + (localStorage.getItem('token') || '')
+            }
+        })
+            .then(response => {
+                const status = document.getElementById('backend-status');
+                if (response.ok || response.status === 401) {
+                    status.className = 'status success';
+                    status.innerHTML = '<span class="icon">?</span><span>Backend is running on port 5257</span>';
+                } else {
+                    throw new Error('Backend error');
+                }
+            })
+            .catch(error => {
+                const status = document.getElementById('backend-status');
+                status.className = 'status pending';
+                status.innerHTML = '<span class="icon">??</span><span>Backend is paused or not running. Resume debugger in Visual Studio (F5)</span>';
+            });
+    </script>
+</body>
+</html>

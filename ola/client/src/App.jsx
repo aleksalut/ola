@@ -19,6 +19,8 @@ import EmotionCreate from "./pages/Emotions/EmotionCreate";
 import EmotionEdit from "./pages/Emotions/EmotionEdit";
 import EmotionDetails from "./pages/Emotions/EmotionDetails";
 import AddProgress from "./pages/Progress/AddProgress";
+import ReportsDashboard from "./pages/Reports/ReportsDashboard";
+import AdminUsers from "./pages/Admin/AdminUsers";
 import Home from "./pages/Home";
 
 export default function App() {
@@ -47,6 +49,14 @@ export default function App() {
           <Route path="/emotions/create" element={<ProtectedRoute><EmotionCreate /></ProtectedRoute>} />
           <Route path="/emotions/:id" element={<ProtectedRoute><EmotionDetails /></ProtectedRoute>} />
           <Route path="/emotions/:id/edit" element={<ProtectedRoute><EmotionEdit /></ProtectedRoute>} />
+
+          <Route path="/reports" element={<ProtectedRoute><ReportsDashboard /></ProtectedRoute>} />
+
+          <Route path="/admin/users" element={
+            <ProtectedRoute requiredRole="Admin">
+              <AdminUsers />
+            </ProtectedRoute>
+          } />
 
           <Route path="/" element={<Home />} />
           <Route path="*" element={<div className="container">Nie znaleziono strony</div>} />

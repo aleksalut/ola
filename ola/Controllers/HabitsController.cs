@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ola.Data;
+using ola.DTOs.Habits;
 using ola.Models;
+using ola.Services;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,11 +18,13 @@ namespace ola.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IAuditService _auditService;
 
-        public HabitsController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        public HabitsController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, IAuditService auditService)
         {
             _db = db;
             _userManager = userManager;
+            _auditService = auditService;
         }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
@@ -77,6 +81,13 @@ namespace ola.Controllers
             };
             _db.Habits.Add(habit);
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "CreateHabit",
+                "Habit",
+                habit.Id,
+                new { habit.Name, habit.Description }
+            );
             return CreatedAtAction(nameof(GetById), new { id = habit.Id }, habit);
         }
 
@@ -94,6 +105,13 @@ namespace ola.Controllers
             habit.Name = update.Name;
             habit.Description = update.Description;
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "UpdateHabit",
+                "Habit",
+                habit.Id,
+                new { update.Name, update.Description }
+            );
             return Ok(habit);
         }
 
@@ -107,6 +125,13 @@ namespace ola.Controllers
             {
                 _db.Habits.Remove(habit);
                 await _db.SaveChangesAsync();
+                await _auditService.LogAction(
+                    userId,
+                    "DeleteHabit",
+                    "Habit",
+                    id,
+                    null
+                );
                 return NoContent();
             }
             catch (DbUpdateException ex) when (ex.InnerException is Microsoft.Data.SqlClient.SqlException sqlEx && sqlEx.Number == 547)
@@ -152,6 +177,13 @@ namespace ola.Controllers
             };
             _db.DailyProgresses.Add(entry);
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "AddHabitProgress",
+                "DailyProgress",
+                entry.Id,
+                new { req.HabitId, req.Date, req.Value }
+            );
             return Ok(entry);
         }
 
@@ -159,6 +191,29 @@ namespace ola.Controllers
         public async Task<IActionResult> AddProgressAbsolute([FromBody] AddProgressRequest req)
         {
             return await AddProgress(req);
+        }
+
+        [HttpGet("{habitId}/streak")]
+        public async Task<IActionResult> GetStreak(int habitId)
+        {
+            var userId = GetUserId();
+
+            var habit = await _db.Habits
+                .FirstOrDefaultAsync(h => h.Id == habitId && h.UserId == userId);
+
+            if (habit == null) return NotFound(new { error = "Habit not found" });
+
+            var streak = await _db
+                .Database
+                .SqlQueryRaw<int>("SELECT dbo.fn_GetHabitStreak({0}, {1})", habitId, userId)
+                .FirstAsync();
+
+            return Ok(new HabitStreakDto
+            {
+                HabitId = habitId,
+                HabitName = habit.Name,
+                CurrentStreak = streak
+            });
         }
     }
 }

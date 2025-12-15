@@ -1,0 +1,278 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1200" style="background-color: #f9fafb;">
+  <defs>
+    <style>
+      .table-box { fill: white; stroke: #3b82f6; stroke-width: 2; }
+      .pk-field { fill: #fef3c7; }
+      .fk-field { fill: #dbeafe; }
+      .regular-field { fill: white; }
+      .table-name { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #1e40af; }
+      .field-text { font-family: 'Courier New', monospace; font-size: 12px; fill: #374151; }
+      .relationship-line { stroke: #6b7280; stroke-width: 2; fill: none; }
+      .one-marker { fill: #6b7280; }
+      .many-marker { stroke: #6b7280; stroke-width: 2; fill: none; }
+      .note-text { font-family: Arial, sans-serif; font-size: 14px; fill: #6b7280; font-style: italic; }
+      .title-text { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; fill: #1e3a8a; }
+    </style>
+    
+    <!-- Arrow markers for relationships -->
+    <marker id="one" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <line x1="0" y1="5" x2="10" y2="5" class="one-marker" stroke-width="2"/>
+    </marker>
+    <marker id="many" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <line x1="5" y1="0" x2="5" y2="10" class="many-marker" stroke-width="2"/>
+      <line x1="0" y1="5" x2="10" y2="5" class="many-marker" stroke-width="2"/>
+      <line x1="5" y1="0" x2="0" y2="5" class="many-marker" stroke-width="2"/>
+      <line x1="5" y1="0" x2="10" y2="5" class="many-marker" stroke-width="2"/>
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="700" y="35" text-anchor="middle" class="title-text">Personal Growth Tracker - Database ERD</text>
+  <text x="700" y="55" text-anchor="middle" class="note-text">Entity Relationship Diagram</text>
+  
+  <!-- AspNetUsers (Central Table) -->
+  <g id="AspNetUsers">
+    <rect x="550" y="80" width="300" height="280" class="table-box" rx="5"/>
+    <rect x="550" y="80" width="300" height="35" fill="#3b82f6" rx="5"/>
+    <text x="700" y="102" text-anchor="middle" class="table-name" fill="white">AspNetUsers</text>
+    
+    <rect x="555" y="120" width="290" height="20" class="pk-field"/>
+    <text x="560" y="133" class="field-text">?? Id: varchar(450) [PK]</text>
+    
+    <text x="560" y="153" class="field-text">UserName: varchar(256)</text>
+    <text x="560" y="168" class="field-text">Email: varchar(256)</text>
+    <text x="560" y="183" class="field-text">EmailConfirmed: bit</text>
+    <text x="560" y="198" class="field-text">PasswordHash: varchar(max)</text>
+    <text x="560" y="213" class="field-text">FirstName: varchar(100)</text>
+    <text x="560" y="228" class="field-text">LastName: varchar(100)</text>
+    <text x="560" y="243" class="field-text">FullName: varchar(100)</text>
+    <text x="560" y="258" class="field-text">Bio: varchar(250)</text>
+    <text x="560" y="273" class="field-text">...</text>
+    
+    <text x="700" y="350" text-anchor="middle" class="note-text" font-size="10">Identity User + Profile</text>
+  </g>
+  
+  <!-- Habits -->
+  <g id="Habits">
+    <rect x="50" y="450" width="280" height="180" class="table-box" rx="5"/>
+    <rect x="50" y="450" width="280" height="35" fill="#3b82f6" rx="5"/>
+    <text x="190" y="472" text-anchor="middle" class="table-name" fill="white">Habits</text>
+    
+    <rect x="55" y="490" width="270" height="20" class="pk-field"/>
+    <text x="60" y="503" class="field-text">?? Id: int [PK, Identity]</text>
+    
+    <text x="60" y="523" class="field-text">Name: varchar(100) [Required]</text>
+    <text x="60" y="538" class="field-text">Description: varchar(500)</text>
+    <text x="60" y="553" class="field-text">Created: datetime [Required]</text>
+    
+    <rect x="55" y="563" width="270" height="20" class="fk-field"/>
+    <text x="60" y="576" class="field-text">?? UserId: varchar(450) [FK]</text>
+    
+    <text x="60" y="591" class="field-text">+ DailyProgresses: []</text>
+    <text x="60" y="606" class="field-text">+ User: ApplicationUser</text>
+  </g>
+  
+  <!-- DailyProgresses -->
+  <g id="DailyProgresses">
+    <rect x="50" y="680" width="280" height="160" class="table-box" rx="5"/>
+    <rect x="50" y="680" width="280" height="35" fill="#3b82f6" rx="5"/>
+    <text x="190" y="702" text-anchor="middle" class="table-name" fill="white">DailyProgresses</text>
+    
+    <rect x="55" y="720" width="270" height="20" class="pk-field"/>
+    <text x="60" y="733" class="field-text">?? Id: int [PK, Identity]</text>
+    
+    <rect x="55" y="743" width="270" height="20" class="fk-field"/>
+    <text x="60" y="756" class="field-text">?? HabitId: int [FK]</text>
+    
+    <rect x="55" y="766" width="270" height="20" class="fk-field"/>
+    <text x="60" y="779" class="field-text">?? UserId: varchar(450) [FK]</text>
+    
+    <text x="60" y="799" class="field-text">Date: datetime [Required]</text>
+    <text x="60" y="814" class="field-text">Value: int [0-100]</text>
+    
+    <text x="190" y="830" text-anchor="middle" class="note-text" font-size="10">Daily habit tracking</text>
+  </g>
+  
+  <!-- Goals -->
+  <g id="Goals">
+    <rect x="380" y="450" width="280" height="200" class="table-box" rx="5"/>
+    <rect x="380" y="450" width="280" height="35" fill="#3b82f6" rx="5"/>
+    <text x="520" y="472" text-anchor="middle" class="table-name" fill="white">Goals</text>
+    
+    <rect x="385" y="490" width="270" height="20" class="pk-field"/>
+    <text x="390" y="503" class="field-text">?? Id: int [PK, Identity]</text>
+    
+    <text x="390" y="523" class="field-text">Title: varchar(200) [Required]</text>
+    <text x="390" y="538" class="field-text">Description: varchar(2000)</text>
+    <text x="390" y="553" class="field-text">Deadline: datetime</text>
+    <text x="390" y="568" class="field-text">Priority: int [0-2]</text>
+    <text x="390" y="583" class="field-text">Status: int [0-3]</text>
+    <text x="390" y="598" class="field-text">ProgressPercentage: int</text>
+    
+    <rect x="385" y="608" width="270" height="20" class="fk-field"/>
+    <text x="390" y="621" class="field-text">?? UserId: varchar(450) [FK]</text>
+    
+    <text x="520" y="640" text-anchor="middle" class="note-text" font-size="10">User goal tracking</text>
+  </g>
+  
+  <!-- EmotionEntries -->
+  <g id="EmotionEntries">
+    <rect x="740" y="450" width="280" height="220" class="table-box" rx="5"/>
+    <rect x="740" y="450" width="280" height="35" fill="#3b82f6" rx="5"/>
+    <text x="880" y="472" text-anchor="middle" class="table-name" fill="white">EmotionEntries</text>
+    
+    <rect x="745" y="490" width="270" height="20" class="pk-field"/>
+    <text x="750" y="503" class="field-text">?? Id: int [PK, Identity]</text>
+    
+    <text x="750" y="523" class="field-text">CreatedAt: datetime</text>
+    <text x="750" y="538" class="field-text">Text: varchar(2000) [Required]</text>
+    <text x="750" y="553" class="field-text">Anxiety: int [1-5]</text>
+    <text x="750" y="568" class="field-text">Calmness: int [1-5]</text>
+    <text x="750" y="583" class="field-text">Joy: int [1-5]</text>
+    <text x="750" y="598" class="field-text">Anger: int [1-5]</text>
+    <text x="750" y="613" class="field-text">Boredom: int [1-5]</text>
+    
+    <rect x="745" y="623" width="270" height="20" class="fk-field"/>
+    <text x="750" y="636" class="field-text">?? UserId: varchar(450) [FK]</text>
+    
+    <text x="880" y="660" text-anchor="middle" class="note-text" font-size="10">Emotion journal entries</text>
+  </g>
+  
+  <!-- AuditLogs -->
+  <g id="AuditLogs">
+    <rect x="1070" y="450" width="280" height="180" class="table-box" rx="5"/>
+    <rect x="1070" y="450" width="280" height="35" fill="#3b82f6" rx="5"/>
+    <text x="1210" y="472" text-anchor="middle" class="table-name" fill="white">AuditLogs</text>
+    
+    <rect x="1075" y="490" width="270" height="20" class="pk-field"/>
+    <text x="1080" y="503" class="field-text">?? Id: int [PK, Identity]</text>
+    
+    <rect x="1075" y="513" width="270" height="20" class="fk-field"/>
+    <text x="1080" y="526" class="field-text">?? UserId: varchar(450) [FK]</text>
+    
+    <text x="1080" y="546" class="field-text">Action: varchar(50)</text>
+    <text x="1080" y="561" class="field-text">EntityType: varchar(50)</text>
+    <text x="1080" y="576" class="field-text">EntityId: int</text>
+    <text x="1080" y="591" class="field-text">Timestamp: datetime</text>
+    <text x="1080" y="606" class="field-text">Details: varchar(max)</text>
+    
+    <text x="1210" y="620" text-anchor="middle" class="note-text" font-size="10">Activity audit trail</text>
+  </g>
+  
+  <!-- AspNetRoles -->
+  <g id="AspNetRoles">
+    <rect x="950" y="80" width="280" height="140" class="table-box" rx="5"/>
+    <rect x="950" y="80" width="280" height="35" fill="#3b82f6" rx="5"/>
+    <text x="1090" y="102" text-anchor="middle" class="table-name" fill="white">AspNetRoles</text>
+    
+    <rect x="955" y="120" width="270" height="20" class="pk-field"/>
+    <text x="960" y="133" class="field-text">?? Id: varchar(450) [PK]</text>
+    
+    <text x="960" y="153" class="field-text">Name: varchar(256)</text>
+    <text x="960" y="168" class="field-text">NormalizedName: varchar(256)</text>
+    <text x="960" y="183" class="field-text">ConcurrencyStamp: varchar(max)</text>
+    
+    <text x="1090" y="210" text-anchor="middle" class="note-text" font-size="10">System roles (Admin, User)</text>
+  </g>
+  
+  <!-- AspNetUserRoles (Junction) -->
+  <g id="AspNetUserRoles">
+    <rect x="870" y="240" width="200" height="100" class="table-box" rx="5" stroke-dasharray="5,5"/>
+    <rect x="870" y="240" width="200" height="35" fill="#9ca3af" rx="5"/>
+    <text x="970" y="262" text-anchor="middle" class="table-name" fill="white" font-size="14">AspNetUserRoles</text>
+    
+    <rect x="875" y="280" width="190" height="20" class="pk-field"/>
+    <text x="880" y="293" class="field-text">?? UserId [PK, FK]</text>
+    
+    <rect x="875" y="303" width="190" height="20" class="pk-field"/>
+    <text x="880" y="316" class="field-text">?? RoleId [PK, FK]</text>
+  </g>
+  
+  <!-- Relationships -->
+  
+  <!-- AspNetUsers to Habits (1:N) -->
+  <path d="M 550 220 L 400 220 L 400 540 L 330 540" class="relationship-line" marker-end="url(#many)"/>
+  <text x="420" y="215" class="note-text" font-size="10">1</text>
+  <text x="340" y="535" class="note-text" font-size="10">N</text>
+  
+  <!-- AspNetUsers to DailyProgresses (1:N) -->
+  <path d="M 550 260 L 450 260 L 450 760 L 330 760" class="relationship-line" marker-end="url(#many)"/>
+  <text x="460" y="255" class="note-text" font-size="10">1</text>
+  <text x="340" y="755" class="note-text" font-size="10">N</text>
+  
+  <!-- Habits to DailyProgresses (1:N) -->
+  <path d="M 190 630 L 190 680" class="relationship-line" marker-end="url(#many)"/>
+  <text x="195" y="648" class="note-text" font-size="10">1</text>
+  <text x="195" y="673" class="note-text" font-size="10">N</text>
+  <text x="200" y="655" class="note-text" font-size="11">CASCADE</text>
+  
+  <!-- AspNetUsers to Goals (1:N) -->
+  <path d="M 630 360 L 630 450" class="relationship-line" marker-end="url(#many)"/>
+  <text x="635" y="375" class="note-text" font-size="10">1</text>
+  <text x="635" y="443" class="note-text" font-size="10">N</text>
+  
+  <!-- AspNetUsers to EmotionEntries (1:N) -->
+  <path d="M 750 360 L 750 420 L 880 420 L 880 450" class="relationship-line" marker-end="url(#many)"/>
+  <text x="755" y="375" class="note-text" font-size="10">1</text>
+  <text x="885" y="443" class="note-text" font-size="10">N</text>
+  
+  <!-- AspNetUsers to AuditLogs (1:N) -->
+  <path d="M 850 220 L 1210 220 L 1210 450" class="relationship-line" marker-end="url(#many)"/>
+  <text x="865" y="215" class="note-text" font-size="10">1</text>
+  <text x="1215" y="443" class="note-text" font-size="10">N</text>
+  
+  <!-- AspNetUsers to AspNetUserRoles (M:N) -->
+  <path d="M 850 150 L 870 150 L 870 290" class="relationship-line" marker-end="url(#many)"/>
+  <text x="855" y="145" class="note-text" font-size="10">M</text>
+  
+  <!-- AspNetRoles to AspNetUserRoles (M:N) -->
+  <path d="M 1010 220 L 1010 240" class="relationship-line" marker-end="url(#many)"/>
+  <text x="1015" y="235" class="note-text" font-size="10">N</text>
+  
+  <!-- Legend -->
+  <g id="Legend">
+    <rect x="50" y="900" width="500" height="260" fill="white" stroke="#9ca3af" stroke-width="1" rx="5"/>
+    <text x="300" y="925" text-anchor="middle" class="table-name">Legend</text>
+    
+    <rect x="70" y="940" width="100" height="20" class="pk-field"/>
+    <text x="180" y="953" class="field-text">Primary Key (PK)</text>
+    
+    <rect x="70" y="970" width="100" height="20" class="fk-field"/>
+    <text x="180" y="983" class="field-text">Foreign Key (FK)</text>
+    
+    <rect x="70" y="1000" width="100" height="20" class="regular-field" stroke="#9ca3af"/>
+    <text x="180" y="1013" class="field-text">Regular Field</text>
+    
+    <line x1="70" y1="1040" x2="150" y2="1040" class="relationship-line"/>
+    <text x="160" y="1043" class="field-text">Relationship</text>
+    
+    <text x="70" y="1070" class="field-text">1 : N = One to Many</text>
+    <text x="70" y="1090" class="field-text">M : N = Many to Many</text>
+    <text x="70" y="1110" class="field-text">CASCADE = Delete children</text>
+    <text x="70" y="1130" class="field-text">RESTRICT = Prevent delete</text>
+  </g>
+  
+  <!-- Database Objects Info -->
+  <g id="DatabaseObjects">
+    <rect x="600" y="900" width="750" height="260" fill="white" stroke="#9ca3af" stroke-width="1" rx="5"/>
+    <text x="975" y="925" text-anchor="middle" class="table-name">Database Objects</text>
+    
+    <text x="620" y="950" class="field-text" font-weight="bold">Functions:</text>
+    <text x="640" y="970" class="field-text">• fn_GetHabitStreak(@habitId, @userId): int</text>
+    <text x="660" y="985" class="note-text" font-size="10">Returns current consecutive streak for a habit</text>
+    <text x="640" y="1005" class="field-text">• fn_GetGoalCompletionRate(@userId): decimal</text>
+    <text x="660" y="1020" class="note-text" font-size="10">Returns percentage of completed goals</text>
+    
+    <text x="620" y="1045" class="field-text" font-weight="bold">Stored Procedures:</text>
+    <text x="640" y="1065" class="field-text">• sp_GetUserStatistics(@userId)</text>
+    <text x="660" y="1080" class="note-text" font-size="10">Returns comprehensive user activity statistics</text>
+    <text x="640" y="1100" class="field-text">• sp_ArchiveCompletedGoals(@userId, @daysOld)</text>
+    <text x="660" y="1115" class="note-text" font-size="10">Archives old completed goals for cleanup</text>
+    
+    <text x="620" y="1140" class="field-text" font-weight="bold">Triggers:</text>
+    <text x="640" y="1160" class="field-text">• trg_AutoCompleteGoal ON Goals</text>
+  </g>
+  
+  <!-- Footer -->
+  <text x="700" y="1185" text-anchor="middle" class="note-text">Personal Growth Tracker Database Schema - .NET 8 + EF Core + SQL Server</text>
+</svg>

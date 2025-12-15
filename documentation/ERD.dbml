@@ -1,0 +1,209 @@
+// Personal Growth Tracker - Database Schema
+// Entity Relationship Diagram (ERD)
+// Generated: 2024-12-13
+
+// ============================================================
+// IDENTITY TABLES (ASP.NET Core Identity)
+// ============================================================
+
+Table AspNetUsers {
+  Id varchar(450) [pk, not null, note: 'Primary key - User ID']
+  UserName varchar(256) [note: 'Unique username']
+  NormalizedUserName varchar(256) [note: 'Normalized username for lookups']
+  Email varchar(256) [note: 'User email address']
+  NormalizedEmail varchar(256) [note: 'Normalized email for lookups']
+  EmailConfirmed bit [not null, default: false, note: 'Email confirmation status']
+  PasswordHash varchar(max) [note: 'Hashed password']
+  SecurityStamp varchar(max) [note: 'Security stamp for token validation']
+  ConcurrencyStamp varchar(max) [note: 'Concurrency control']
+  PhoneNumber varchar(50) [note: 'User phone number']
+  PhoneNumberConfirmed bit [not null, default: false]
+  TwoFactorEnabled bit [not null, default: false]
+  LockoutEnd datetimeoffset [note: 'Lockout end time']
+  LockoutEnabled bit [not null, default: false]
+  AccessFailedCount int [not null, default: 0]
+  
+  // Custom ApplicationUser fields
+  FirstName varchar(100) [note: 'User first name']
+  LastName varchar(100) [note: 'User last name']
+  FullName varchar(100) [note: 'User full name']
+  Bio varchar(250) [note: 'User biography']
+  
+  Note: 'Extended ASP.NET Identity User with custom profile fields'
+}
+
+Table AspNetRoles {
+  Id varchar(450) [pk, not null]
+  Name varchar(256) [note: 'Role name (e.g., Admin, User)']
+  NormalizedName varchar(256) [note: 'Normalized role name']
+  ConcurrencyStamp varchar(max)
+  
+  Note: 'System roles for authorization'
+}
+
+Table AspNetUserRoles {
+  UserId varchar(450) [pk, not null]
+  RoleId varchar(450) [pk, not null]
+  
+  Note: 'Maps users to roles (many-to-many)'
+}
+
+// ============================================================
+// APPLICATION TABLES
+// ============================================================
+
+Table Habits {
+  Id int [pk, increment, not null, note: 'Primary key - Habit ID']
+  Name varchar(100) [not null, note: 'Habit name']
+  Description varchar(500) [note: 'Habit description']
+  Created datetime [not null, default: `GETUTCDATE()`, note: 'Creation timestamp']
+  UserId varchar(450) [not null, ref: > AspNetUsers.Id, note: 'Owner user ID']
+  
+  indexes {
+    (UserId, Name) [name: 'IX_Habits_UserId_Name']
+  }
+  
+  Note: 'User habits to track daily'
+}
+
+Table DailyProgresses {
+  Id int [pk, increment, not null, note: 'Primary key - Progress entry ID']
+  HabitId int [not null, ref: > Habits.Id, note: 'Associated habit']
+  UserId varchar(450) [not null, ref: > AspNetUsers.Id, note: 'Owner user ID']
+  Date datetime [not null, note: 'Progress date']
+  Value int [not null, note: 'Progress value (0-100%)']
+  
+  indexes {
+    (UserId, HabitId, Date) [name: 'IX_DailyProgresses_UserId_HabitId_Date']
+  }
+  
+  Note: 'Daily progress entries for habits'
+}
+
+Table Goals {
+  Id int [pk, increment, not null, note: 'Primary key - Goal ID']
+  Title varchar(200) [not null, note: 'Goal title']
+  Description varchar(2000) [note: 'Goal description']
+  Deadline datetime [note: 'Goal deadline']
+  Priority int [not null, default: 1, note: '0=Low, 1=Medium, 2=High']
+  Status int [not null, default: 0, note: '0=NotStarted, 1=InProgress, 2=Completed, 3=Archived']
+  ProgressPercentage int [not null, default: 0, note: 'Progress (0-100%)']
+  CreatedAt datetime [not null, default: `GETUTCDATE()`, note: 'Creation timestamp']
+  UpdatedAt datetime [not null, default: `GETUTCDATE()`, note: 'Last update timestamp']
+  UserId varchar(450) [not null, ref: > AspNetUsers.Id, note: 'Owner user ID']
+  
+  indexes {
+    (UserId, Status, Priority) [name: 'IX_Goals_UserId_Status_Priority']
+  }
+  
+  Note: 'User goals with progress tracking'
+}
+
+Table EmotionEntries {
+  Id int [pk, increment, not null, note: 'Primary key - Emotion entry ID']
+  CreatedAt datetime [not null, default: `GETUTCDATE()`, note: 'Entry creation time']
+  Text varchar(2000) [not null, note: 'Emotion description']
+  
+  // Emotion scales (1-5)
+  Anxiety int [note: 'Anxiety level (1-5)']
+  Calmness int [note: 'Calmness level (1-5)']
+  Joy int [note: 'Joy level (1-5)']
+  Anger int [note: 'Anger level (1-5)']
+  Boredom int [note: 'Boredom level (1-5)']
+  
+  // Legacy fields (backward compatibility)
+  Date datetime [not null, default: `GETUTCDATE()`, note: 'Entry date']
+  Emotion varchar(50) [note: 'Legacy emotion type']
+  Intensity int [note: 'Legacy intensity (0-10)']
+  Note varchar(1000) [note: 'Legacy note field']
+  
+  UserId varchar(450) [not null, ref: > AspNetUsers.Id, note: 'Owner user ID']
+  
+  indexes {
+    (UserId, Date) [name: 'IX_EmotionEntries_UserId_Date']
+  }
+  
+  Note: 'Emotion journal entries with scale ratings'
+}
+
+Table AuditLogs {
+  Id int [pk, increment, not null, note: 'Primary key - Audit log ID']
+  UserId varchar(450) [not null, ref: > AspNetUsers.Id, note: 'User who performed action']
+  Action varchar(50) [not null, note: 'Action performed (e.g., CreateHabit, UpdateGoal)']
+  EntityType varchar(50) [not null, note: 'Entity type affected (e.g., Habit, Goal)']
+  EntityId int [not null, note: 'ID of affected entity']
+  Timestamp datetime [not null, default: `GETUTCDATE()`, note: 'Action timestamp']
+  Details varchar(max) [note: 'JSON details of the action']
+  
+  indexes {
+    (UserId, Timestamp) [name: 'IX_AuditLogs_UserId_Timestamp']
+  }
+  
+  Note: 'Audit trail for all user actions'
+}
+
+// ============================================================
+// RELATIONSHIPS
+// ============================================================
+
+// Identity Relationships
+Ref: AspNetUserRoles.UserId > AspNetUsers.Id [delete: cascade]
+Ref: AspNetUserRoles.RoleId > AspNetRoles.Id [delete: cascade]
+
+// Application Relationships
+Ref: Habits.UserId > AspNetUsers.Id [delete: restrict, note: 'User owns habits']
+Ref: DailyProgresses.HabitId > Habits.Id [delete: cascade, note: 'Habit has many progress entries']
+Ref: DailyProgresses.UserId > AspNetUsers.Id [delete: restrict, note: 'User owns progress entries']
+Ref: Goals.UserId > AspNetUsers.Id [delete: restrict, note: 'User owns goals']
+Ref: EmotionEntries.UserId > AspNetUsers.Id [delete: restrict, note: 'User owns emotion entries']
+Ref: AuditLogs.UserId > AspNetUsers.Id [delete: restrict, note: 'User performed audited actions']
+
+// ============================================================
+// ENUMERATIONS
+// ============================================================
+
+Enum GoalPriority {
+  Low [note: '0']
+  Medium [note: '1']
+  High [note: '2']
+}
+
+Enum GoalStatus {
+  NotStarted [note: '0']
+  InProgress [note: '1']
+  Completed [note: '2']
+  Archived [note: '3']
+}
+
+// ============================================================
+// DATABASE OBJECTS
+// ============================================================
+
+// Functions
+// - fn_GetHabitStreak(@habitId, @userId): Returns current streak for a habit
+// - fn_GetGoalCompletionRate(@userId): Returns goal completion percentage
+
+// Stored Procedures
+// - sp_GetUserStatistics(@userId): Returns comprehensive user statistics
+// - sp_ArchiveCompletedGoals(@userId, @daysOld): Archives old completed goals
+
+// Triggers
+// - trg_AutoCompleteGoal: Auto-completes goals when progress reaches 100%
+
+// ============================================================
+// NOTES
+// ============================================================
+
+// Cardinality Summary:
+// - AspNetUsers 1:N Habits
+// - AspNetUsers 1:N Goals
+// - AspNetUsers 1:N EmotionEntries
+// - AspNetUsers 1:N DailyProgresses
+// - AspNetUsers 1:N AuditLogs
+// - Habits 1:N DailyProgresses
+// - AspNetUsers M:N AspNetRoles (through AspNetUserRoles)
+
+// Delete Behavior:
+// - CASCADE: DailyProgresses deleted when Habit deleted
+// - CASCADE: UserRoles deleted when User or Role deleted
+// - RESTRICT: Habits, Goals, EmotionEntries, AuditLogs preserved when User deleted (data integrity)

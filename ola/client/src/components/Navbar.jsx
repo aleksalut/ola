@@ -1,7 +1,9 @@
 import { Link, NavLink } from "react-router-dom";
-import { isAuthenticated, logout } from "../services/auth";
+import { isAuthenticated, logout, getCurrentUser } from "../services/auth";
 
 export default function Navbar() {
+  const user = getCurrentUser();
+  
   return (
     <header className="bg-white border-b">
       <div className="container flex items-center justify-between py-4">
@@ -12,6 +14,10 @@ export default function Navbar() {
               <NavLink to="/habits" className={({isActive})=>`hover:text-primary ${isActive?'text-primary':''}`}>Habits</NavLink>
               <NavLink to="/goals" className={({isActive})=>`hover:text-primary ${isActive?'text-primary':''}`}>Goals</NavLink>
               <NavLink to="/emotions" className={({isActive})=>`hover:text-primary ${isActive?'text-primary':''}`}>Emotion Journal</NavLink>
+              <NavLink to="/reports" className={({isActive})=>`hover:text-primary ${isActive?'text-primary':''}`}>Reports</NavLink>
+              {user?.roles?.includes("Admin") && (
+                <NavLink to="/admin/users" className={({isActive})=>`hover:text-primary ${isActive?'text-primary':''}`}>Admin</NavLink>
+              )}
               <button onClick={logout} className="btn outline">Logout</button>
             </>
           )}

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ola.Data;
 using ola.Models;
+using ola.Services;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,10 +17,12 @@ namespace ola.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
-        public GoalsController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        private readonly IAuditService _auditService;
+        public GoalsController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, IAuditService auditService)
         {
             _db = db;
             _userManager = userManager;
+            _auditService = auditService;
         }
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
 
@@ -104,6 +107,13 @@ namespace ola.Controllers
             };
             _db.Goals.Add(goal);
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "CreateGoal",
+                "Goal",
+                goal.Id,
+                new { goal.Title, goal.Priority, goal.Deadline }
+            );
             return CreatedAtAction(nameof(GetById), new { id = goal.Id }, goal);
         }
 
@@ -125,6 +135,13 @@ namespace ola.Controllers
             goal.Status = update.Status;
             goal.UpdatedAt = DateTime.UtcNow;
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "UpdateGoal",
+                "Goal",
+                goal.Id,
+                new { update.Title, update.Priority, update.Status }
+            );
             return Ok(goal);
         }
 
@@ -136,6 +153,13 @@ namespace ola.Controllers
             if (goal == null) return NotFound(new { error = "Goal not found" });
             _db.Goals.Remove(goal);
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "DeleteGoal",
+                "Goal",
+                id,
+                null
+            );
             return NoContent();
         }
 
@@ -151,6 +175,13 @@ namespace ola.Controllers
             goal.Status = pct == 100 ? GoalStatus.Completed : goal.Status;
             goal.UpdatedAt = DateTime.UtcNow;
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "UpdateGoalProgress",
+                "Goal",
+                goal.Id,
+                new { req.Progress }
+            );
             return Ok(goal);
         }
 
@@ -164,6 +195,13 @@ namespace ola.Controllers
             goal.Status = req.Status;
             goal.UpdatedAt = DateTime.UtcNow;
             await _db.SaveChangesAsync();
+            await _auditService.LogAction(
+                userId,
+                "UpdateGoalStatus",
+                "Goal",
+                goal.Id,
+                new { req.Status }
+            );
             return Ok(goal);
         }
     }

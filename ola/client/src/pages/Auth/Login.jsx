@@ -19,8 +19,8 @@ export default function Login() {
     setLoading(true);
     try {
       const res = await login(email, password);
-      // login service stores token
-      nav("/habits");
+      // Force page reload to update Navbar with user roles
+      window.location.href = "/habits";
     } catch (err) {
       setError(err?.response?.data?.error || "Invalid login credentials");
     } finally {
