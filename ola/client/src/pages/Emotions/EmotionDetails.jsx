@@ -65,31 +65,31 @@ export default function EmotionDetails(){
             <div className="space-y-3">
               {entry.anxiety && (
                 <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
-                  <span className="font-medium text-purple-900">😰 Anxiety</span>
+                  <span className="font-medium text-purple-900">Anxiety</span>
                   <span className="text-purple-700 font-bold">{entry.anxiety}/5</span>
                 </div>
               )}
               {entry.calmness && (
                 <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                  <span className="font-medium text-blue-900">😌 Calmness</span>
+                  <span className="font-medium text-blue-900">Calmness</span>
                   <span className="text-blue-700 font-bold">{entry.calmness}/5</span>
                 </div>
               )}
               {entry.joy && (
                 <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
-                  <span className="font-medium text-yellow-900">😊 Joy</span>
+                  <span className="font-medium text-yellow-900">Joy</span>
                   <span className="text-yellow-700 font-bold">{entry.joy}/5</span>
                 </div>
               )}
               {entry.anger && (
                 <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
-                  <span className="font-medium text-red-900">😠 Anger</span>
+                  <span className="font-medium text-red-900">Anger</span>
                   <span className="text-red-700 font-bold">{entry.anger}/5</span>
                 </div>
               )}
               {entry.boredom && (
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <span className="font-medium text-gray-900">😴 Boredom</span>
+                  <span className="font-medium text-gray-900">Boredom</span>
                   <span className="text-gray-700 font-bold">{entry.boredom}/5</span>
                 </div>
               )}

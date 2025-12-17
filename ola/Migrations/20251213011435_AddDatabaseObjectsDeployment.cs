@@ -86,36 +86,57 @@ namespace ola.Migrations
             ");
 
             // Create Trigger: trg_AutoCompleteGoal
-            migrationBuilder.Sql(@"
-                CREATE OR ALTER TRIGGER trg_AutoCompleteGoal
-                ON Goals
-                AFTER UPDATE
-                AS
-                BEGIN
-                    -- Completed
-                    UPDATE Goals
-                    SET Status = 2
-                    WHERE Id IN (
-                        SELECT Id FROM inserted WHERE ProgressPercentage >= 100
-                    );
+                migrationBuilder.Sql(@"
+                    CREATE OR ALTER TRIGGER trg_AutoCompleteGoal
+                    ON Goals
+                    AFTER UPDATE
+                    AS
+                    BEGIN
+                        -- Completed
+                        UPDATE Goals
+                        SET Status = 2
+                        WHERE Id IN (
+                            SELECT Id FROM inserted WHERE ProgressPercentage >= 100
+                        );
 
-                    -- In progress
-                    UPDATE Goals
-                    SET Status = 1
-                    WHERE Id IN (
-                        SELECT Id FROM inserted
-                        WHERE ProgressPercentage > 0 AND ProgressPercentage < 100
-                    );
+                        -- In progress
+                        UPDATE Goals
+                        SET Status = 1
+                        WHERE Id IN (
+                            SELECT Id FROM inserted
+                            WHERE ProgressPercentage > 0 AND ProgressPercentage < 100
+                        );
 
-                    -- Not started
-                    UPDATE Goals
-                    SET Status = 0
-                    WHERE Id IN (
-                        SELECT Id FROM inserted WHERE ProgressPercentage = 0
-                    );
-                END
-            ");
-        }
+                        -- Not started
+                        UPDATE Goals
+                        SET Status = 0
+                        WHERE Id IN (
+                            SELECT Id FROM inserted WHERE ProgressPercentage = 0
+                        );
+                    END
+                ");
+
+                // Create Function: fn_GetEmotionTrends (table-valued function for emotion trends)
+                migrationBuilder.Sql(@"
+                    CREATE OR ALTER FUNCTION fn_GetEmotionTrends(@UserId NVARCHAR(450), @Days INT)
+                    RETURNS TABLE
+                    AS
+                    RETURN
+                    (
+                        SELECT 
+                            CAST(CreatedAt AS DATE) AS Date,
+                            AVG(CAST(ISNULL(Anxiety, 0) AS FLOAT)) AS AvgAnxiety,
+                            AVG(CAST(ISNULL(Calmness, 0) AS FLOAT)) AS AvgCalmness,
+                            AVG(CAST(ISNULL(Joy, 0) AS FLOAT)) AS AvgJoy,
+                            AVG(CAST(ISNULL(Anger, 0) AS FLOAT)) AS AvgAnger,
+                            AVG(CAST(ISNULL(Boredom, 0) AS FLOAT)) AS AvgBoredom
+                        FROM EmotionEntries
+                        WHERE UserId = @UserId 
+                          AND CreatedAt >= DATEADD(DAY, -@Days, GETDATE())
+                        GROUP BY CAST(CreatedAt AS DATE)
+                    )
+                ");
+            }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -130,6 +151,7 @@ namespace ola.Migrations
             // Drop Functions
             migrationBuilder.Sql("DROP FUNCTION IF EXISTS fn_GetGoalCompletionRate;");
             migrationBuilder.Sql("DROP FUNCTION IF EXISTS fn_GetHabitStreak;");
+            migrationBuilder.Sql("DROP FUNCTION IF EXISTS fn_GetEmotionTrends;");
         }
     }
 }

@@ -211,7 +211,7 @@ export default function ReportsDashboard() {
               <p className="text-sm text-gray-600 mb-1">Total Habits</p>
               <p className="text-3xl font-bold text-blue-600">{statistics?.totalHabits || 0}</p>
             </div>
-            <div className="text-4xl">??</div>
+            <div className="w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center text-blue-600 font-bold">H</div>
           </div>
         </Card>
 
@@ -221,7 +221,7 @@ export default function ReportsDashboard() {
               <p className="text-sm text-gray-600 mb-1">Total Goals</p>
               <p className="text-3xl font-bold text-green-600">{statistics?.totalGoals || 0}</p>
             </div>
-            <div className="text-4xl">??</div>
+            <div className="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center text-green-600 font-bold">G</div>
           </div>
         </Card>
 
@@ -231,7 +231,7 @@ export default function ReportsDashboard() {
               <p className="text-sm text-gray-600 mb-1">Completed Goals</p>
               <p className="text-3xl font-bold text-purple-600">{statistics?.completedGoals || 0}</p>
             </div>
-            <div className="text-4xl">?</div>
+            <div className="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center text-purple-600 font-bold">&#10003;</div>
           </div>
         </Card>
 
@@ -243,7 +243,7 @@ export default function ReportsDashboard() {
                 {completionRate !== null ? `${completionRate.toFixed(1)}%` : 'N/A'}
               </p>
             </div>
-            <div className="text-4xl">??</div>
+            <div className="w-12 h-12 bg-yellow-200 rounded-full flex items-center justify-center text-yellow-600 font-bold">%</div>
           </div>
         </Card>
 
@@ -253,7 +253,7 @@ export default function ReportsDashboard() {
               <p className="text-sm text-gray-600 mb-1">In Progress</p>
               <p className="text-3xl font-bold text-indigo-600">{statistics?.inProgressGoals || 0}</p>
             </div>
-            <div className="text-4xl">??</div>
+            <div className="w-12 h-12 bg-indigo-200 rounded-full flex items-center justify-center text-indigo-600 font-bold">&#8594;</div>
           </div>
         </Card>
 
@@ -263,7 +263,7 @@ export default function ReportsDashboard() {
               <p className="text-sm text-gray-600 mb-1">Not Started</p>
               <p className="text-3xl font-bold text-pink-600">{statistics?.notStartedGoals || 0}</p>
             </div>
-            <div className="text-4xl">??</div>
+            <div className="w-12 h-12 bg-pink-200 rounded-full flex items-center justify-center text-pink-600 font-bold">&#9679;</div>
           </div>
         </Card>
 
@@ -273,7 +273,7 @@ export default function ReportsDashboard() {
               <p className="text-sm text-gray-600 mb-1">Emotion Entries</p>
               <p className="text-3xl font-bold text-teal-600">{statistics?.totalEmotionEntries || 0}</p>
             </div>
-            <div className="text-4xl">??</div>
+            <div className="w-12 h-12 bg-teal-200 rounded-full flex items-center justify-center text-teal-600 font-bold">E</div>
           </div>
         </Card>
 
@@ -287,7 +287,7 @@ export default function ReportsDashboard() {
                   : 'N/A'}
               </p>
             </div>
-            <div className="text-4xl">?</div>
+            <div className="w-12 h-12 bg-orange-200 rounded-full flex items-center justify-center text-orange-600 font-bold">&#9733;</div>
           </div>
         </Card>
       </div>

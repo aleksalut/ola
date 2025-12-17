@@ -44,11 +44,11 @@ export default function EmotionList(){
               {/* Emotion Scales Display */}
               {(e.anxiety || e.calmness || e.joy || e.anger || e.boredom) && (
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {e.anxiety && <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">?? Anxiety: {e.anxiety}/5</span>}
-                  {e.calmness && <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">?? Calmness: {e.calmness}/5</span>}
-                  {e.joy && <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-xs">?? Joy: {e.joy}/5</span>}
-                  {e.anger && <span className="px-2 py-1 bg-red-100 text-red-700 rounded text-xs">?? Anger: {e.anger}/5</span>}
-                  {e.boredom && <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">?? Boredom: {e.boredom}/5</span>}
+                  {e.anxiety && <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded text-xs">Anxiety: {e.anxiety}/5</span>}
+                  {e.calmness && <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs">Calmness: {e.calmness}/5</span>}
+                  {e.joy && <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-xs">Joy: {e.joy}/5</span>}
+                  {e.anger && <span className="px-2 py-1 bg-red-100 text-red-700 rounded text-xs">Anger: {e.anger}/5</span>}
+                  {e.boredom && <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded text-xs">Boredom: {e.boredom}/5</span>}
                 </div>
               )}
               

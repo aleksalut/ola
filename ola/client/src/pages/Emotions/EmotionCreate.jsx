@@ -104,31 +104,31 @@ export default function EmotionCreate() {
             </h3>
             <div className="space-y-3">
               <EmotionScale 
-                label="?? Anxiety" 
+                label="Anxiety" 
                 value={anxiety} 
                 onChange={setAnxiety}
                 color="text-purple-600"
               />
               <EmotionScale 
-                label="?? Calmness" 
+                label="Calmness" 
                 value={calmness} 
                 onChange={setCalmness}
                 color="text-blue-600"
               />
               <EmotionScale 
-                label="?? Joy" 
+                label="Joy" 
                 value={joy} 
                 onChange={setJoy}
                 color="text-yellow-600"
               />
               <EmotionScale 
-                label="?? Anger" 
+                label="Anger" 
                 value={anger} 
                 onChange={setAnger}
                 color="text-red-600"
               />
               <EmotionScale 
-                label="?? Boredom" 
+                label="Boredom" 
                 value={boredom} 
                 onChange={setBoredom}
                 color="text-gray-600"
