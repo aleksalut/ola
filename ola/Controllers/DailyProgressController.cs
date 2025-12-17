@@ -34,7 +34,6 @@ namespace ola.Controllers
 
         // POST /api/progress
         [HttpPost]
-        [Route("/api/progress")]
         public async Task<IActionResult> AddProgress([FromBody] AddProgressRequest req)
         {
             if (!ModelState.IsValid) return BadRequest(new { error = "Invalid data" });

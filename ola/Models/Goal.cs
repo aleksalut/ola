@@ -19,6 +19,13 @@ namespace ola.Models
         [StringLength(2000)]
         public string? Description { get; set; }
 
+        /// <summary>
+        /// The reason why the user wants to achieve this goal - required for motivation
+        /// </summary>
+        [Required]
+        [StringLength(1000)]
+        public string WhyReason { get; set; } = string.Empty;
+
         public DateTime? Deadline { get; set; }
 
         [Required]

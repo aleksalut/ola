@@ -187,12 +187,6 @@ namespace ola.Controllers
             return Ok(entry);
         }
 
-        [HttpPost("/api/progress")]
-        public async Task<IActionResult> AddProgressAbsolute([FromBody] AddProgressRequest req)
-        {
-            return await AddProgress(req);
-        }
-
         [HttpGet("{habitId}/streak")]
         public async Task<IActionResult> GetStreak(int habitId)
         {

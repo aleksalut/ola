@@ -150,6 +150,21 @@ using (var scope = app.Services.CreateScope())
             }
         }
 
+        // Ensure WhyReason column exists in Goals table
+        try
+        {
+            await db.Database.ExecuteSqlRawAsync(@"
+                IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Goals]') AND name = 'WhyReason')
+                BEGIN
+                    ALTER TABLE [dbo].[Goals] ADD [WhyReason] nvarchar(1000) NOT NULL DEFAULT ''
+                END
+            ");
+        }
+        catch (Exception)
+        {
+            // Column might already exist or table doesn't exist yet
+        }
+
         // Initialize roles
         string[] roles = { "Admin", "User" };
         foreach (var role in roles)

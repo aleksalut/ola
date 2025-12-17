@@ -3,6 +3,7 @@ import { getAll } from '../../services/emotions'
 import Card from '../../components/Card'
 import Loader from '../../components/Loader'
 import EmptyState from '../../components/EmptyState'
+import PriorityGoalReminder from '../../components/PriorityGoalReminder'
 import { Link } from 'react-router-dom'
 
 export default function EmotionList(){
@@ -21,6 +22,9 @@ export default function EmotionList(){
         </div>
         <EmptyState title="No entries yet" message="Create your first emotion entry" />
       </Card>
+      
+      {/* Priority Goal Reminder */}
+      <PriorityGoalReminder />
     </div>
   )
 
@@ -60,6 +64,9 @@ export default function EmotionList(){
           ))}
         </div>
       </Card>
+      
+      {/* Priority Goal Reminder */}
+      <PriorityGoalReminder />
     </div>
   )
 }

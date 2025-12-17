@@ -33,6 +33,9 @@ namespace ola.Controllers
             public string Title { get; set; } = string.Empty;
             [StringLength(2000)]
             public string? Description { get; set; }
+            [Required]
+            [StringLength(1000)]
+            public string WhyReason { get; set; } = string.Empty;
             public DateTime? Deadline { get; set; }
             [Required]
             public GoalPriority Priority { get; set; } = GoalPriority.Medium;
@@ -45,6 +48,9 @@ namespace ola.Controllers
             public string Title { get; set; } = string.Empty;
             [StringLength(2000)]
             public string? Description { get; set; }
+            [Required]
+            [StringLength(1000)]
+            public string WhyReason { get; set; } = string.Empty;
             public DateTime? Deadline { get; set; }
             [Required]
             public GoalPriority Priority { get; set; } = GoalPriority.Medium;
@@ -97,6 +103,7 @@ namespace ola.Controllers
             {
                 Title = req.Title,
                 Description = req.Description,
+                WhyReason = req.WhyReason,
                 Deadline = req.Deadline,
                 Priority = req.Priority,
                 Status = GoalStatus.NotStarted,
@@ -130,6 +137,7 @@ namespace ola.Controllers
 
             goal.Title = update.Title;
             goal.Description = update.Description;
+            goal.WhyReason = update.WhyReason;
             goal.Deadline = update.Deadline;
             goal.Priority = update.Priority;
             goal.Status = update.Status;
