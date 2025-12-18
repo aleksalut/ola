@@ -2,7 +2,30 @@
 
 > A comprehensive full-stack web application for tracking habits, goals, emotions, and personal development with enterprise-grade architecture.
 
-## ?? Table of Contents
+## 🚀 Szybki Start
+
+### Dla niecierpliwych - 3 polecenia:
+```powershell
+# 1. Utwórz bazę danych
+cd ola
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+# 2. Uruchom automatyczny skrypt
+cd ..
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+.\start-app.ps1
+```
+
+### Dane logowania:
+- **Admin:** `admin@admin.com` / `Adusia2025$#`
+- **Test User (po imporcie):** `test@test.com` / `Test@123`
+
+📖 **Pełna instrukcja:** Zobacz [SZYBKI_START.md](SZYBKI_START.md) lub [Dokumentacja/manual/INSTRUKCJA_URUCHOMIENIA.md](Dokumentacja/manual/INSTRUKCJA_URUCHOMIENIA.md)
+
+---
+
+## 📋 Table of Contents
 
 - [System Description](#system-description)
 - [Technology Stack](#technology-stack)
@@ -32,7 +55,7 @@ The application implements role-based access control, secure authentication mech
 ### Backend
 - **ASP.NET Core 8.0** - Modern web API framework
 - **Entity Framework Core 8.0** - ORM for database interactions
-- **SQLite** - Lightweight file-based relational database
+- **SQL Server Express** - Enterprise-grade relational database
 - **ASP.NET Core Identity** - Authentication and authorization
 - **JWT Bearer Authentication** - Token-based security
 
