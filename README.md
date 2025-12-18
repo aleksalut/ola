@@ -32,7 +32,7 @@ The application implements role-based access control, secure authentication mech
 ### Backend
 - **ASP.NET Core 8.0** - Modern web API framework
 - **Entity Framework Core 8.0** - ORM for database interactions
-- **SQL Server** - Relational database management system
+- **SQLite** - Lightweight file-based relational database
 - **ASP.NET Core Identity** - Authentication and authorization
 - **JWT Bearer Authentication** - Token-based security
 
@@ -55,8 +55,8 @@ The application implements role-based access control, secure authentication mech
 ### Prerequisites
 - .NET 8.0 SDK
 - Node.js (v18 or higher)
-- SQL Server (LocalDB or full instance)
-- Visual Studio 2022 or VS Code
+- SQLite (wbudowane w EF Core)
+- Visual Studio 2022 lub VS Code (opcjonalnie)
 
 ### Backend Setup
 
@@ -66,12 +66,13 @@ The application implements role-based access control, secure authentication mech
    cd BazyDanych
    ```
 
-2. **Configure database connection**
+2. **Konfiguracja bazy danych**
    
-   Edit `appsettings.json` or use the default LocalDB connection string:
+   Aplikacja używa SQLite - baza `GrowthDb.db` jest tworzona automatycznie.
+   Connection string w `appsettings.json`:
    ```json
    "ConnectionStrings": {
-     "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=GrowthDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+     "DefaultConnection": "Data Source=GrowthDb.db"
    }
    ```
 
@@ -125,28 +126,33 @@ The application implements role-based access control, secure authentication mech
 
 ### Database Setup
 
-The application automatically initializes the database on first run:
+Aplikacja automatycznie inicjalizuje bazę SQLite przy pierwszym uruchomieniu:
 
-1. **Automatic migrations**: EF Core migrations are applied at startup
-2. **Development mode**: In development, the database schema is recreated to match models
-3. **Role initialization**: Admin and User roles are created automatically
-4. **Database objects**: Manually execute SQL scripts for stored procedures, triggers, and functions
+1. **Automatyczne migracje**: Migracje EF Core są aplikowane przy starcie
+2. **Plik bazy**: `GrowthDb.db` tworzony w folderze `ola/`
+3. **Inicjalizacja ról**: Role Admin i User tworzone automatycznie
+4. **Dane demo**: Użytkownik testowy i przykładowe dane
 
-#### Execute Database Objects
+#### Dane testowe (seed data)
 
-Run the following SQL scripts in SQL Server Management Studio or Azure Data Studio:
+Przy pierwszym uruchomieniu tworzone są:
+- **Użytkownik demo**: test@test.com / Test@123 (rola Admin)
+- **6 celów** w różnych fazach (15-80% postępu)
+- **5 nawyków** z pełnym śledzeniem (31 dni każdy)
+- **155+ wpisów daily progress**
+- **14 wpisów emocji** z ostatnich 10 dni
 
-```sql
--- Stored Procedures
-/Database/Procedures/sp_GetUserStatistics.sql
-/Database/Procedures/sp_ArchiveCompletedGoals.sql
+#### Backup bazy danych
 
--- Functions
-/Database/Functions/fn_GetGoalCompletionRate.sql
+```bash
+# Kopia pliku bazy
+cp ola/GrowthDb.db ola/GrowthDb.backup.db
 
--- Triggers
-/Database/Triggers/trg_AutoCompleteGoal.sql
+# Lub za pomocą PowerShell
+Copy-Item "ola/GrowthDb.db" "Database/backups/GrowthDb_$(Get-Date -Format 'yyyy-MM-dd').db"
 ```
+
+Więcej w dokumentacji: `documentation/BACKUP_I_DANE.md`
 
 ## ?? Entity Relationship Diagram (ERD)
 

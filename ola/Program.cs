@@ -58,7 +58,7 @@ builder.Services.AddSwaggerGen(c =>
 // EF Core + Identity + JWT
 builder.Services.AddDbContext<ola.Data.ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Server=(localdb)\\mssqllocaldb;Database=GrowthDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=GrowthDb.db");
 });
 
 builder.Services.AddIdentity<ApplicationUser, Microsoft.AspNetCore.Identity.IdentityRole>(options =>
