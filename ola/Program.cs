@@ -58,7 +58,7 @@ builder.Services.AddSwaggerGen(c =>
 // EF Core + Identity + JWT
 builder.Services.AddDbContext<ola.Data.ApplicationDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=GrowthDb.db");
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found."));
 });
 
 builder.Services.AddIdentity<ApplicationUser, Microsoft.AspNetCore.Identity.IdentityRole>(options =>
@@ -132,22 +132,10 @@ using (var scope = app.Services.CreateScope())
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     try
     {
+        // Apply migrations if they exist
         if (db.Database.GetMigrations().Any())
         {
             db.Database.Migrate();
-        }
-        else
-        {
-            // In development without migrations, recreate schema to match models
-            if (app.Environment.IsDevelopment())
-            {
-                db.Database.EnsureDeleted();
-                db.Database.EnsureCreated();
-            }
-            else
-            {
-                db.Database.EnsureCreated();
-            }
         }
 
         // Ensure WhyReason column exists in Goals table

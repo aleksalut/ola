@@ -1,0 +1,491 @@
+﻿{
+    "emotions":  {
+                     "value":  [
+                                   {
+                                       "id":  17,
+                                       "createdAt":  "2025-12-18T22:39:44.5671424",
+                                       "text":  "Dzisiejszy dzien: Zrelaksowany",
+                                       "anxiety":  1,
+                                       "calmness":  4,
+                                       "joy":  2,
+                                       "anger":  4,
+                                       "boredom":  2,
+                                       "date":  "2025-12-05T00:00:00",
+                                       "emotion":  "Zrelaksowany",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  16,
+                                       "createdAt":  "2025-12-18T22:39:44.560724",
+                                       "text":  "Dzisiejszy dzien: Podekscytowany",
+                                       "anxiety":  3,
+                                       "calmness":  2,
+                                       "joy":  4,
+                                       "anger":  4,
+                                       "boredom":  2,
+                                       "date":  "2025-12-06T00:00:00",
+                                       "emotion":  "Podekscytowany",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  15,
+                                       "createdAt":  "2025-12-18T22:39:44.5536484",
+                                       "text":  "Dzisiejszy dzien: Zmeczony",
+                                       "anxiety":  5,
+                                       "calmness":  3,
+                                       "joy":  3,
+                                       "anger":  5,
+                                       "boredom":  3,
+                                       "date":  "2025-12-07T00:00:00",
+                                       "emotion":  "Zmeczony",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  14,
+                                       "createdAt":  "2025-12-18T22:39:44.5465181",
+                                       "text":  "Dzisiejszy dzien: Zestresowany",
+                                       "anxiety":  1,
+                                       "calmness":  4,
+                                       "joy":  4,
+                                       "anger":  3,
+                                       "boredom":  4,
+                                       "date":  "2025-12-08T00:00:00",
+                                       "emotion":  "Zestresowany",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  13,
+                                       "createdAt":  "2025-12-18T22:39:44.5390237",
+                                       "text":  "Dzisiejszy dzien: Zmotywowany",
+                                       "anxiety":  4,
+                                       "calmness":  1,
+                                       "joy":  3,
+                                       "anger":  5,
+                                       "boredom":  3,
+                                       "date":  "2025-12-09T00:00:00",
+                                       "emotion":  "Zmotywowany",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  12,
+                                       "createdAt":  "2025-12-18T22:39:44.5309651",
+                                       "text":  "Dzisiejszy dzien: Spokojny",
+                                       "anxiety":  1,
+                                       "calmness":  1,
+                                       "joy":  2,
+                                       "anger":  2,
+                                       "boredom":  4,
+                                       "date":  "2025-12-10T00:00:00",
+                                       "emotion":  "Spokojny",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  11,
+                                       "createdAt":  "2025-12-18T22:39:44.5233601",
+                                       "text":  "Dzisiejszy dzien: Radosny",
+                                       "anxiety":  4,
+                                       "calmness":  1,
+                                       "joy":  2,
+                                       "anger":  4,
+                                       "boredom":  4,
+                                       "date":  "2025-12-11T00:00:00",
+                                       "emotion":  "Radosny",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  10,
+                                       "createdAt":  "2025-12-18T22:39:44.5153384",
+                                       "text":  "Dzisiejszy dzien: Zrelaksowany",
+                                       "anxiety":  4,
+                                       "calmness":  4,
+                                       "joy":  5,
+                                       "anger":  1,
+                                       "boredom":  2,
+                                       "date":  "2025-12-12T00:00:00",
+                                       "emotion":  "Zrelaksowany",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  9,
+                                       "createdAt":  "2025-12-18T22:39:44.5075697",
+                                       "text":  "Dzisiejszy dzien: Podekscytowany",
+                                       "anxiety":  3,
+                                       "calmness":  1,
+                                       "joy":  3,
+                                       "anger":  2,
+                                       "boredom":  5,
+                                       "date":  "2025-12-13T00:00:00",
+                                       "emotion":  "Podekscytowany",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  8,
+                                       "createdAt":  "2025-12-18T22:39:44.4991151",
+                                       "text":  "Dzisiejszy dzien: Zmeczony",
+                                       "anxiety":  1,
+                                       "calmness":  3,
+                                       "joy":  2,
+                                       "anger":  3,
+                                       "boredom":  1,
+                                       "date":  "2025-12-14T00:00:00",
+                                       "emotion":  "Zmeczony",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  7,
+                                       "createdAt":  "2025-12-18T22:39:44.491786",
+                                       "text":  "Dzisiejszy dzien: Zestresowany",
+                                       "anxiety":  1,
+                                       "calmness":  2,
+                                       "joy":  1,
+                                       "anger":  3,
+                                       "boredom":  4,
+                                       "date":  "2025-12-15T00:00:00",
+                                       "emotion":  "Zestresowany",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  6,
+                                       "createdAt":  "2025-12-18T22:39:44.4845325",
+                                       "text":  "Dzisiejszy dzien: Zmotywowany",
+                                       "anxiety":  3,
+                                       "calmness":  3,
+                                       "joy":  5,
+                                       "anger":  1,
+                                       "boredom":  2,
+                                       "date":  "2025-12-16T00:00:00",
+                                       "emotion":  "Zmotywowany",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  5,
+                                       "createdAt":  "2025-12-18T22:39:44.4767503",
+                                       "text":  "Dzisiejszy dzien: Spokojny",
+                                       "anxiety":  1,
+                                       "calmness":  2,
+                                       "joy":  1,
+                                       "anger":  2,
+                                       "boredom":  4,
+                                       "date":  "2025-12-17T00:00:00",
+                                       "emotion":  "Spokojny",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   },
+                                   {
+                                       "id":  4,
+                                       "createdAt":  "2025-12-18T22:39:44.431381",
+                                       "text":  "Dzisiejszy dzien: Radosny",
+                                       "anxiety":  3,
+                                       "calmness":  2,
+                                       "joy":  1,
+                                       "anger":  2,
+                                       "boredom":  3,
+                                       "date":  "2025-12-18T00:00:00",
+                                       "emotion":  "Radosny",
+                                       "intensity":  null,
+                                       "note":  null,
+                                       "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                       "user":  null
+                                   }
+                               ],
+                     "Count":  14
+                 },
+    "habits":  {
+                   "value":  [
+                                 {
+                                     "id":  4,
+                                     "name":  "Picie wody",
+                                     "description":  "8 szklanek dziennie",
+                                     "created":  "2025-12-18T22:39:43.5185674",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 },
+                                 {
+                                     "id":  5,
+                                     "name":  "Poranne cwiczenia",
+                                     "description":  "30 minut ruchu rano",
+                                     "created":  "2025-12-18T22:39:43.5546755",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 },
+                                 {
+                                     "id":  6,
+                                     "name":  "Czytanie",
+                                     "description":  "30 minut przed snem",
+                                     "created":  "2025-12-18T22:39:43.5620784",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 },
+                                 {
+                                     "id":  7,
+                                     "name":  "Medytacja",
+                                     "description":  "15 minut mindfulness",
+                                     "created":  "2025-12-18T22:39:43.5694703",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 },
+                                 {
+                                     "id":  8,
+                                     "name":  "Nauka programowania",
+                                     "description":  "2h kodowania dziennie",
+                                     "created":  "2025-12-18T22:39:43.5767058",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 },
+                                 {
+                                     "id":  9,
+                                     "name":  "Zdrowe sniadanie",
+                                     "description":  "Bez cukru",
+                                     "created":  "2025-12-18T22:39:43.5847046",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 },
+                                 {
+                                     "id":  10,
+                                     "name":  "Spacer",
+                                     "description":  "10000 krokow dziennie",
+                                     "created":  "2025-12-18T22:39:43.5925071",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 },
+                                 {
+                                     "id":  11,
+                                     "name":  "Nauka jezyka",
+                                     "description":  "Duolingo codziennie",
+                                     "created":  "2025-12-18T22:39:43.5987618",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 },
+                                 {
+                                     "id":  12,
+                                     "name":  "Planowanie dnia",
+                                     "description":  "Wieczorne planowanie",
+                                     "created":  "2025-12-18T22:39:43.6072126",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 },
+                                 {
+                                     "id":  13,
+                                     "name":  "Sen o stalej porze",
+                                     "description":  "Zasypianie przed 23",
+                                     "created":  "2025-12-18T22:39:43.6133113",
+                                     "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                     "user":  null,
+                                     "dailyProgresses":  [
+
+                                                         ]
+                                 }
+                             ],
+                   "Count":  10
+               },
+    "goals":  {
+                  "value":  [
+                                {
+                                    "id":  4,
+                                    "title":  "Nauczyc sie ASP.NET Core",
+                                    "description":  "Opanowac framework do aplikacji webowych",
+                                    "whyReason":  "Chce byc programista .NET",
+                                    "deadline":  "2025-06-30T00:00:00",
+                                    "priority":  2,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.449248",
+                                    "updatedAt":  "2025-12-18T22:39:00.4492481",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                },
+                                {
+                                    "id":  5,
+                                    "title":  "Przeczytac 12 ksiazek",
+                                    "description":  "Czytac przynajmniej 1 ksiazke miesiecznie",
+                                    "whyReason":  "Rozwoj osobisty",
+                                    "deadline":  "2025-12-31T00:00:00",
+                                    "priority":  1,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.5818675",
+                                    "updatedAt":  "2025-12-18T22:39:00.5818676",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                },
+                                {
+                                    "id":  6,
+                                    "title":  "Przebiec polmaraton",
+                                    "description":  "21km w mniej niz 2h",
+                                    "whyReason":  "Zdrowie i sprawnosc",
+                                    "deadline":  "2025-09-15T00:00:00",
+                                    "priority":  1,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.5946773",
+                                    "updatedAt":  "2025-12-18T22:39:00.5946773",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                },
+                                {
+                                    "id":  7,
+                                    "title":  "Opanowac React",
+                                    "description":  "Budowac aplikacje SPA",
+                                    "whyReason":  "Frontend development",
+                                    "deadline":  "2025-08-01T00:00:00",
+                                    "priority":  2,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.6099014",
+                                    "updatedAt":  "2025-12-18T22:39:00.6099015",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                },
+                                {
+                                    "id":  8,
+                                    "title":  "Schudnac 10kg",
+                                    "description":  "Zdrowa dieta i cwiczenia",
+                                    "whyReason":  "Zdrowie",
+                                    "deadline":  "2025-07-01T00:00:00",
+                                    "priority":  0,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.6241909",
+                                    "updatedAt":  "2025-12-18T22:39:00.624191",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                },
+                                {
+                                    "id":  9,
+                                    "title":  "Nauczyc sie gry na gitarze",
+                                    "description":  "Podstawowe akordy i piosenki",
+                                    "whyReason":  "Hobby i relaks",
+                                    "deadline":  "2025-12-31T00:00:00",
+                                    "priority":  0,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.6343757",
+                                    "updatedAt":  "2025-12-18T22:39:00.6343758",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                },
+                                {
+                                    "id":  10,
+                                    "title":  "Oszczedzic 10000 zl",
+                                    "description":  "Fundusz awaryjny",
+                                    "whyReason":  "Bezpieczenstwo finansowe",
+                                    "deadline":  "2025-12-31T00:00:00",
+                                    "priority":  1,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.6455825",
+                                    "updatedAt":  "2025-12-18T22:39:00.6455826",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                },
+                                {
+                                    "id":  11,
+                                    "title":  "Certyfikat SQL",
+                                    "description":  "Microsoft SQL Server certification",
+                                    "whyReason":  "Rozwoj kariery",
+                                    "deadline":  "2025-05-01T00:00:00",
+                                    "priority":  2,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.6549347",
+                                    "updatedAt":  "2025-12-18T22:39:00.6549348",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                },
+                                {
+                                    "id":  12,
+                                    "title":  "Medytowac codziennie",
+                                    "description":  "15 minut dziennie",
+                                    "whyReason":  "Zdrowie psychiczne",
+                                    "deadline":  "2025-12-31T00:00:00",
+                                    "priority":  1,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.664816",
+                                    "updatedAt":  "2025-12-18T22:39:00.6648161",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                },
+                                {
+                                    "id":  13,
+                                    "title":  "Nauczyc sie Docker",
+                                    "description":  "Konteneryzacja aplikacji",
+                                    "whyReason":  "DevOps skills",
+                                    "deadline":  "2025-10-01T00:00:00",
+                                    "priority":  2,
+                                    "status":  0,
+                                    "progressPercentage":  0,
+                                    "createdAt":  "2025-12-18T22:39:00.6755592",
+                                    "updatedAt":  "2025-12-18T22:39:00.6755592",
+                                    "userId":  "05300cb2-16be-484f-9d09-6f3388484ca1",
+                                    "user":  null
+                                }
+                            ],
+                  "Count":  10
+              }
+}
