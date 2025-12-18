@@ -2,6 +2,12 @@
 # SKRYPT IMPORTU DANYCH Z BACKUP - PERSONAL GROWTH
 # =============================================================================
 # Ten skrypt importuje dane z pliku backup_data.json
+# 
+# WAŻNE: Przed uruchomieniem upewnij się, że:
+# 1. Backend działa na http://localhost:5257
+# 2. Frontend działa na http://localhost:5173  
+# 3. Ustawiłeś ExecutionPolicy: Set-ExecutionPolicy -Bypass -Scope Process
+#
 # Uruchom: .\import-data.ps1
 # =============================================================================
 
@@ -83,7 +89,7 @@ $headers = @{
 # Import celow
 Write-Host "[4/5] Importowanie celow..." -ForegroundColor Yellow
 $goalsImported = 0
-foreach ($goal in $backup.goals) {
+foreach ($goal in $backup.goals.value) {
     $body = @{
         title = $goal.title
         description = $goal.description
@@ -105,7 +111,7 @@ foreach ($goal in $backup.goals) {
 # Import nawykow
 Write-Host "[5/5] Importowanie nawykow..." -ForegroundColor Yellow
 $habitsImported = 0
-foreach ($habit in $backup.habits) {
+foreach ($habit in $backup.habits.value) {
     $body = @{
         name = $habit.name
         description = $habit.description
@@ -137,7 +143,7 @@ foreach ($habit in $habitsResponse) {
 
 # Import emocji
 $emotionsImported = 0
-foreach ($emotion in $backup.emotions) {
+foreach ($emotion in $backup.emotions.value) {
     $body = @{
         date = $emotion.date
         emotion = $emotion.emotion

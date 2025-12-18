@@ -1,5 +1,19 @@
 # 🚀 Personal Growth - Instrukcja Uruchomienia
 
+> **Zaktualizowano:** 19 grudnia 2025  
+> **Wersja instrukcji:** 2.0 - Zweryfikowana i przetestowana
+
+## ⚡ Najważniejsze informacje przed startem
+
+**✅ WAŻNE KROKI (nie pomiń!):**
+1. Projekt **NIE MA** gotowych migracji - musisz je utworzyć komendą `dotnet ef migrations add InitialCreate`
+2. Backend i Frontend muszą działać **równocześnie w osobnych oknach PowerShell**
+3. Skrypty PowerShell wymagają ustawienia `ExecutionPolicy -Bypass`
+4. Dane logowania: `admin@admin.com` / `Adusia2025$#` (tworzone automatycznie)
+5. Import danych testowych: `test@test.com` / `Test@123` (przez skrypt)
+
+---
+
 ## 📋 Spis treści
 1. [Wymagania systemowe](#wymagania-systemowe)
 2. [Instalacja środowiska](#instalacja-środowiska)
@@ -98,42 +112,60 @@ Plik `ola/appsettings.json` zawiera connection string:
 
 ### Utworzenie bazy danych
 
+**WAŻNE**: Projekt wymaga utworzenia migracji przed pierwszym uruchomieniem!
+
 ```powershell
 cd ola
+
+# Krok 1: Utwórz migrację (tylko pierwszym razem)
+dotnet ef migrations add InitialCreate
+
+# Krok 2: Zastosuj migrację do bazy danych
 dotnet ef database update
 ```
 
 To polecenie:
 - Utworzy bazę `GrowthDb` jeśli nie istnieje
 - Zastosuje wszystkie migracje
-- Utworzy tabele i dane początkowe (demo user)
+- Utworzy tabele i strukturę bazy danych
+- Doda dane początkowe (użytkownik admin)
 
 ---
 
 ## ▶️ Uruchomienie aplikacji
 
-### Metoda 1: Ręczne uruchomienie (zalecana do developmentu)
+### Metoda 1: Ręczne uruchomienie w osobnych oknach (ZALECANA)
 
-**Terminal 1 - Backend:**
+**Otwórz pierwsze okno PowerShell - Backend:**
 ```powershell
-cd C:\projektyOla\ola\ola
+cd ola
 dotnet run
 ```
 Backend uruchomi się na: `http://localhost:5257`
+Nie zamykaj tego okna!
 
-**Terminal 2 - Frontend:**
+**Otwórz drugie okno PowerShell - Frontend:**
 ```powershell
-cd C:\projektyOla\ola\ola\client
+cd ola\client
 npm install    # tylko za pierwszym razem
 npm run dev
 ```
 Frontend uruchomi się na: `http://localhost:5173`
+Nie zamykaj tego okna!
 
-### Metoda 2: Skrypt automatyczny
+⚠️ **UWAGA**: Musisz mieć oba okna PowerShell otwarte jednocześnie!
 
-Uruchom plik `start-app.ps1` (znajduje się w głównym katalogu):
+### Metoda 2: Automatyczne uruchomienie w nowych oknach
+
 ```powershell
-.\start-app.ps1
+# Uruchom backend w nowym oknie
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd ola; dotnet run"
+
+# Poczekaj 5 sekund
+Start-Sleep -Seconds 5
+
+# Uruchom frontend w nowym oknie  
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd ola\client; npm run dev"
 ```
 
 ### Weryfikacja uruchomienia
@@ -146,23 +178,31 @@ Uruchom plik `start-app.ps1` (znajduje się w głównym katalogu):
 
 ## 📊 Import danych testowych
 
-### Opcja A: Użyj skryptu seed-data.ps1
+### Opcja A: Import z backup_data.json (ZALECANA)
+
+Jeśli masz plik `backup_data.json` w katalogu `Dokumentacja\manual`, użyj skryptu `import-data.ps1`:
 
 ```powershell
-cd C:\projektyOla\ola
-.\seed-data.ps1
-```
+cd Dokumentacja\manual
 
-### Opcja B: Import z backup_data.json
+# Jeśli pojawi się błąd ExecutionPolicy, wykonaj:
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 
-Jeśli masz plik `backup_data.json`, użyj skryptu `import-data.ps1`:
-
-```powershell
-cd C:\projektyOla\ola
+# Uruchom import
 .\import-data.ps1
 ```
 
-### Opcja C: Ręczne utworzenie użytkownika przez API
+Skrypt zaimportuje:
+- ✅ 10 celów życiowych
+- ✅ 10 nawyków
+- ✅ 14 wpisów emocji
+- ✅ 70 wpisów postępu
+
+**Dane logowania po imporcie:**
+- Email: `test@test.com`
+- Hasło: `Test@123`
+
+### Opcja B: Użycie domyślnego konta administratora
 
 ```powershell
 # 1. Rejestracja użytkownika
@@ -177,16 +217,24 @@ $token = $login.token
 # Zobacz skrypt seed-data.ps1 dla pełnego przykładu
 ```
 
-### Dostępni użytkownicy testowi
+### Dostępni użytkownicy
 
-| Email | Hasło | Rola |
-|-------|-------|------|
-| `demo@example.com` | `Demo@123` | Admin |
-| `test@test.com` | `Test@123` | User |
+| Email | Hasło | Rola | Uwagi |
+|-------|-------|------|-------|
+| `admin@admin.com` | `Adusia2025$#` | Admin | Tworzony automatycznie przy starcie |
+| `test@test.com` | `Test@123` | User | Tworzony przez skrypt import-data.ps1 |
 
 ---
 
 ## 🔍 Rozwiązywanie problemów
+
+### Problem: "Cannot be loaded because running scripts is disabled"
+
+Powershell blokuje wykonywanie skryptów. Rozwiązanie:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+```
+Potem uruchom skrypt ponownie.
 
 ### Problem: "Failed to bind to address - address already in use"
 
@@ -267,25 +315,30 @@ ola/
 ## 🎯 Szybki start (TL;DR)
 
 ```powershell
-# 1. Sklonuj repo
-git clone <repo-url>
-cd ola
+# 1. Przejdź do katalogu projektu
+cd <ścieżka-do-projektu>
 
-# 2. Utwórz bazę
+# 2. Utwórz migrację i bazę danych
 cd ola
+dotnet ef migrations add InitialCreate
 dotnet ef database update
 
-# 3. Uruchom backend (Terminal 1)
-dotnet run
+# 3. Uruchom backend w nowym oknie
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd ola; dotnet run"
 
-# 4. Uruchom frontend (Terminal 2)
-cd client
-npm install
-npm run dev
+# 4. Poczekaj 5 sekund i uruchom frontend w nowym oknie
+Start-Sleep -Seconds 5
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd ola\client; npm install; npm run dev"
 
-# 5. Otwórz przeglądarkę
+# 5. Zaimportuj dane testowe
+cd Dokumentacja\manual
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
+.\import-data.ps1
+
+# 6. Otwórz przeglądarkę
 # http://localhost:5173
-# Login: demo@example.com / Demo@123
+# Login: test@test.com / Test@123
+# LUB: admin@admin.com / Adusia2025$#
 ```
 
 ---
